@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: Layout(~{::section})}">
+
+<body>
+    <section>
+        <!-- Registration Section Begin -->
+        <section class="login-section spad"
+            style="background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('/img/hero/hero-1.jpg'); 
+                   background-size: cover; 
+                   background-position: center; 
+                   min-height: calc(100vh - 200px); 
+                   padding-top: 100px; 
+                   display: flex; 
+                   align-items: center;">
+
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-8">
+                        <div class="login-container" style="margin-top: 50px;">
+
+                            <div class="section-title text-center mb-5">
+                                <span class="text-warning"
+                                    style="font-size: 18px; letter-spacing: 2px; display: block; margin-bottom: 15px;">
+                                    JOIN US
+                                </span>
+                                <h2 class="text-white mt-2"
+                                    style="font-size: 42px; font-weight: 700; margin-top: 20px !important;">
+                                    CREATE ACCOUNT
+                                </h2>
+                            </div>
+
+                            <div class="login-form bg-dark p-5 rounded"
+                                style="background: rgba(20, 20, 20, 0.95) !important; 
+                                       border: 1px solid #333; 
+                                       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);">
+
+                                <form th:action="@{/register}" method="post" th:object="${gymMember}">
+
+                                    <!-- Full Name -->
+                                    <div class="form-group mb-4">
+                                        <label class="form-label text-white fw-bold mb-2">
+                                            <i class="fa fa-user me-2 text-warning"></i> Full Name
+                                        </label>
+                                        <input type="text" th:field="*{name}"
+                                            class="form-control form-control-lg bg-dark text-white border-secondary"
+                                            placeholder="Enter your full name" required
+                                            style="background: rgba(0,0,0,0.3) !important; padding: 15px;">
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="form-group mb-4">
+                                        <label class="form-label text-white fw-bold mb-2">
+                                            <i class="fa fa-envelope me-2 text-warning"></i> Email
+                                        </label>
+                                        <input type="email" th:field="*{email}"
+                                            class="form-control form-control-lg bg-dark text-white border-secondary"
+                                            placeholder="Enter your email" required
+                                            style="background: rgba(0,0,0,0.3) !important; padding: 15px;">
+                                    </div>
+
+                                    <!-- Phone -->
+                                    <div class="form-group mb-4">
+                                        <label class="form-label text-white fw-bold mb-2">
+                                            <i class="fa fa-phone me-2 text-warning"></i> Phone Number
+                                        </label>
+                                        <input type="text" th:field="*{phoneNumber}"
+                                            class="form-control form-control-lg bg-dark text-white border-secondary"
+                                            placeholder="Enter your phone number" required
+                                            style="background: rgba(0,0,0,0.3) !important; padding: 15px;">
+                                    </div>
+
+                                    <!-- Age -->
+                                    <div class="form-group mb-4">
+                                        <label class="form-label text-white fw-bold mb-2">
+                                            <i class="fa fa-calendar me-2 text-warning"></i> Age
+                                        </label>
+                                        <input type="number" th:field="*{age}"
+                                            class="form-control form-control-lg bg-dark text-white border-secondary"
+                                            placeholder="Enter your age" required
+                                            style="background: rgba(0,0,0,0.3) !important; padding: 15px;">
+                                    </div>
+
+                                    <!-- Membership Type -->
+                                    <div class="form-group mb-4">
+                                        <label class="form-label text-white fw-bold mb-2">
+                                            <i class="fa fa-id-card me-2 text-warning"></i> Membership Type
+                                        </label>
+                                        <select th:field="*{membershipType}"
+                                            class="form-control form-control-lg bg-dark text-white border-secondary"
+                                            style="background: rgba(0,0,0,0.3) !important; padding: 15px;">
+                                            <option value="">Select Membership</option>
+                                            <option value="Basic">Basic</option>
+                                            <option value="Premium">Premium</option>
+                                            <option value="VIP">VIP</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Username -->
+                                    <div class="form-group mb-4">
+                                        <label class="form-label text-white fw-bold mb-2">
+                                            <i class="fa fa-user-circle me-2 text-warning"></i> Username
+                                        </label>
+                                        <input type="text" th:field="*{username}"
+                                            class="form-control form-control-lg bg-dark text-white border-secondary"
+                                            placeholder="Choose a username" required
+                                            style="background: rgba(0,0,0,0.3) !important; padding: 15px;">
+                                    </div>
+
+                                    <!-- Password -->
+                                    <div class="form-group mb-4">
+                                        <label class="form-label text-white fw-bold mb-2">
+                                            <i class="fa fa-lock me-2 text-warning"></i> Password
+                                        </label>
+                                        <input type="password" th:field="*{password}"
+                                            class="form-control form-control-lg bg-dark text-white border-secondary"
+                                            placeholder="Create a password" required
+                                            style="background: rgba(0,0,0,0.3) !important; padding: 15px;">
+                                    </div>
+
+                                    <!-- Submit -->
+                                    <div class="d-grid gap-2 mb-4">
+                                        <button type="submit" class="btn btn-lg"
+                                            style="background: linear-gradient(45deg, #f36100, #ff7a2f);
+                                                   border: none;
+                                                   padding: 16px;
+                                                   font-weight: 600;
+                                                   letter-spacing: 1px;">
+                                            <i class="fa fa-user-plus me-2"></i> REGISTER NOW
+                                        </button>
+                                    </div>
+
+                                    <!-- Login Link -->
+                                    <div class="text-center pt-4 border-top border-secondary">
+                                        <p class="mb-0 text-light">
+                                            Already have an account?
+                                            <a th:href="@{/login}" class="text-warning fw-bold text-decoration-none">
+                                                Login here <i class="fa fa-arrow-right ms-1"></i>
+                                            </a>
+                                        </p>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Registration Section End -->
+    </section>
+</body>
+</html>
