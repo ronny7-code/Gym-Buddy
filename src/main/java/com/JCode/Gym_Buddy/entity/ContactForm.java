@@ -4,17 +4,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Getter;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GymMember {
+@Entity
+@Table(name = "contact_form_messages")
+public class ContactForm {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +24,5 @@ public class GymMember {
 
     private String name;
     private String email;
-    private String phoneNumber;
-    private int age;
-    private String membershipType;
-    private String username; 
-    private String password;
+    private String comment;
 }
