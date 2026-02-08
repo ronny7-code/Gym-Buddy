@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: Layout(~{::section})}">
+
+<body>
+    <section>
+
+    </section>
+</body>
+</html>
