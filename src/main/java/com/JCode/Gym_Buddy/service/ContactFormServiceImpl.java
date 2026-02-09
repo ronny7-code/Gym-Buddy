@@ -21,7 +21,6 @@ public class ContactFormServiceImpl implements ContactFormService {
             contactFormRepo.save(contactForm);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
     }

@@ -1,101 +1,156 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base :: Layout(~{::section})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base :: Layout(~{::section})}">
 
 <body>
     <section>
+
         <!-- Login Section Begin -->
-        <section class="login-section spad"
-            style="background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('/img/hero/hero-1.jpg'); background-size: cover; background-position: center; min-height: calc(100vh - 200px); padding-top: 100px; display: flex; align-items: center;">
+        <section class="login-section spad" style="
+             background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
+             url('/img/hero/hero-1.jpg');
+             background-size: cover;
+             background-position: center;
+             min-height: calc(100vh - 200px);
+             padding-top: 100px;
+             display: flex;
+             align-items: center;
+             ">
+
             <div class="container">
                 <div class="row justify-content-center">
-                    <!-- Form Column - Centered -->
+
+                    <!-- Form Column -->
                     <div class="col-lg-6 col-md-8">
                         <div class="login-container" style="margin-top: 50px;">
+
+                            <!-- Title -->
                             <div class="section-title text-center mb-5">
-                                <span class="text-warning" style="font-size: 18px; letter-spacing: 2px; display: block; margin-bottom: 15px;">WELCOME
-                                    BACK</span>
-                                <h2 class="text-white mt-2" style="font-size: 42px; font-weight: 700; margin-top: 20px !important;">LOGIN HERE</h2>
+                                <span class="text-warning" style="font-size: 18px; letter-spacing: 2px;">
+                                    WELCOME BACK
+                                </span>
+                                <h2 class="text-white mt-2" style="font-size: 42px; font-weight: 700;">
+                                    LOGIN HERE
+                                </h2>
                             </div>
 
+                            <!-- Login Box -->
+                            <div class="login-form bg-dark p-5 rounded" style="
+                             background: rgba(20,20,20,0.95) !important;
+                             border: 1px solid #333;
+                             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                             ">
 
-                            <div class="login-form bg-dark p-5 rounded"
-                                style="background: rgba(20, 20, 20, 0.95) !important; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);">
-                                <!-- Display error message if login fails -->
+                                <!-- ✅ SUCCESS MESSAGE (AFTER REGISTRATION) -->
+                                <div th:if="${success}" class="alert alert-success alert-dismissible fade show mb-4"
+                                    role="alert" style="
+                                                    background: rgba(40,167,69,0.15);
+                                                    border: 1px solid #28a745;
+                                                    color: #d4edda;
+                                                     ">
+
+                                    <strong>
+                                        <i class="fa fa-check-circle me-2"></i>
+                                        <span th:text="${success}"></span>
+                                    </strong>
+                                </div>
+
+
+                                <!-- ❌ LOGIN ERROR -->
                                 <div th:if="${param.error}" class="alert alert-danger alert-dismissible fade show mb-4"
-                                    role="alert"
-                                    style="background: rgba(220, 53, 69, 0.1); border: 1px solid #dc3545; color: #f8d7da; border-radius: 5px;">
-                                    <strong><i class="fa fa-exclamation-triangle me-2"></i>Invalid credentials!</strong>
+                                    role="alert" style="
+                                 background: rgba(220,53,69,0.15);
+                                 border: 1px solid #dc3545;
+                                 color: #f8d7da;
+                                 ">
+                                    <strong>
+                                        <i class="fa fa-exclamation-triangle me-2"></i>
+                                        Invalid credentials!
+                                    </strong>
                                     Please check your username and password.
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-                                        style="filter: brightness(0) invert(1);"></button>
+                                        style="filter: brightness(0) invert(1);">
+                                    </button>
                                 </div>
 
-                                <!-- Display message if logged out -->
-                                <div th:if="${param.logout}"
-                                    class="alert alert-success alert-dismissible fade show mb-4" role="alert"
-                                    style="background: rgba(40, 167, 69, 0.1); border: 1px solid #28a745; color: #d4edda; border-radius: 5px;">
-                                    <strong><i class="fa fa-check-circle me-2"></i>Logged out successfully.</strong>
-                                    Please login again to continue.
+                                <!-- 🔒 LOGOUT MESSAGE -->
+                                <div th:if="${param.logout}" class="alert alert-info alert-dismissible fade show mb-4"
+                                    role="alert" style="
+                                 background: rgba(23,162,184,0.15);
+                                 border: 1px solid #17a2b8;
+                                 color: #d1ecf1;
+                                 ">
+                                    <strong>
+                                        <i class="fa fa-info-circle me-2"></i>
+                                        Logged out!
+                                    </strong>
+                                    You have been logged out successfully.
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-                                        style="filter: brightness(0) invert(1);"></button>
+                                        style="filter: brightness(0) invert(1);">
+                                    </button>
                                 </div>
 
-                                <form th:action="@{/login}" method="post" th:object="${GymMember}">
+                                <!-- Login Form -->
+                                <form th:action="@{/login}" method="post">
+
+                                    <!-- Username -->
                                     <div class="form-group mb-4">
-                                        <label for="username" class="form-label text-white fw-bold mb-2">
-                                            <i class="fa fa-user me-2 text-warning"></i> Username
+                                        <label class="form-label text-white fw-bold">
+                                            <i class="fa fa-user me-2 text-warning"></i>
+                                            Username
                                         </label>
-                                        <input type="text"
+                                        <input type="text" name="username"
                                             class="form-control form-control-lg bg-dark text-white border-secondary"
-                                            id="username" name="username" placeholder="Enter your username" required
-                                            autofocus
-                                            style="background: rgba(0,0,0,0.3) !important; border-radius: 5px; padding: 15px;">
-                                        <small class="text-muted mt-1 d-block" style="font-size: 12px;">
-                                            Use the username provided during registration
-                                        </small>
+                                            placeholder="Enter your username" required autofocus style="padding: 15px;">
                                     </div>
 
+                                    <!-- Password -->
                                     <div class="form-group mb-4">
-                                        <label for="password" class="form-label text-white fw-bold mb-2">
-                                            <i class="fa fa-lock me-2 text-warning"></i> Password
+                                        <label class="form-label text-white fw-bold">
+                                            <i class="fa fa-lock me-2 text-warning"></i>
+                                            Password
                                         </label>
-                                        <input type="password"
+                                        <input type="password" name="password"
                                             class="form-control form-control-lg bg-dark text-white border-secondary"
-                                            id="password" name="password" placeholder="Enter your password" required
-                                            style="background: rgba(0,0,0,0.3) !important; border-radius: 5px; padding: 15px;">
+                                            placeholder="Enter your password" required style="padding: 15px;">
                                     </div>
 
-                                    <div class="d-grid gap-2 mb-4">
-                                        <button type="submit" class="btn btn-lg" style="background: linear-gradient(45deg, #f36100, #ff7a2f); 
-                                                       border: none; 
-                                                       border-radius: 5px; 
-                                                       padding: 16px; 
-                                                       font-weight: 600;
-                                                       font-size: 16px;
-                                                       letter-spacing: 1px;
-                                                       transition: all 0.3s ease;">
-                                            <i class="fa fa-sign-in me-2"></i> LOGIN 
+                                    <!-- Submit -->
+                                    <div class="d-grid mb-4">
+                                        <button type="submit" class="btn btn-lg" style="
+                                            background: linear-gradient(45deg, #f36100, #ff7a2f);
+                                            border: none;
+                                            padding: 16px;
+                                            font-weight: 600;
+                                            ">
+                                            <i class="fa fa-sign-in me-2"></i>
+                                            LOGIN
                                         </button>
                                     </div>
 
+                                    <!-- Register Link -->
                                     <div class="text-center pt-4 border-top border-secondary">
-                                        <p class="mb-0 text-light" style="font-size: 15px;">
-                                            Don't have an account?
-                                            <a th:href="@{/register}"
-                                                class="text-warning text-decoration-none fw-bold ms-1"
-                                                style="font-size: 15px;">
-                                                Sign up here <i class="fa fa-arrow-right ms-1"></i>
+                                        <p class="text-light mb-0">
+                                            Don’t have an account?
+                                            <a th:href="@{/register}" class="text-warning fw-bold ms-1">
+                                                Sign up here
+                                                <i class="fa fa-arrow-right ms-1"></i>
                                             </a>
                                         </p>
                                     </div>
+
                                 </form>
                             </div>
+                            <!-- Login Box End -->
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
         <!-- Login Section End -->
+
     </section>
 </body>
+
 </html>

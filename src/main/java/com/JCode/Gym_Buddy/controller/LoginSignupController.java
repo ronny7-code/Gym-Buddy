@@ -2,23 +2,65 @@ package com.JCode.Gym_Buddy.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.JCode.Gym_Buddy.entity.GymMember;
+import com.JCode.Gym_Buddy.service.GymMemberService;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class LoginSignupController {
 
-    // Login page
-     @GetMapping("/login")
+    private final GymMemberService gymMemberService;
+
+    @GetMapping("/login")
     public String showLoginPage() {
         return "login";
     }
-    
-    // Registration page
+
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
         model.addAttribute("gymMember", new GymMember());
         return "register";
     }
+
+    @PostMapping("/register")
+    public String registerMember(
+            @Valid @ModelAttribute("gymMember") GymMember gymMember,
+            BindingResult bindingResult,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+
+        // 1. Validation errors
+        if (bindingResult.hasErrors()) {
+            return "register";
+        }
+
+        // 2. Try saving user
+        boolean isAdded = gymMemberService.addMember(gymMember);
+
+        // 3. Success
+        if (isAdded) {
+            redirectAttributes.addFlashAttribute(
+                    "success",
+                    "Registration successful! Please login."
+            );
+            return "redirect:/login";
+        }
+
+        // 4. Failure (duplicate email / username / phone)
+        model.addAttribute(
+                "error",
+                "User is not registered. Email, username, or phone already exists."
+        );
+
+        return "register";
+    }
+
 }
