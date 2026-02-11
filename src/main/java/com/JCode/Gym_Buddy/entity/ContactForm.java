@@ -25,4 +25,5 @@ public class ContactForm {
     private String name;
     private String email;
     private String comment;
+
 }

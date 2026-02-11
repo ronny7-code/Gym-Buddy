@@ -49,7 +49,6 @@ public class HomeController {
     public String getTeamPage() {
         return "team";
     }
-    
 
     // Handling contact form submission
     @PostMapping("/contact")

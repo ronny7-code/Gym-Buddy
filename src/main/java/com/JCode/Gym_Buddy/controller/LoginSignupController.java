@@ -1,13 +1,12 @@
 package com.JCode.Gym_Buddy.controller;
 
+import com.JCode.Gym_Buddy.dto.GymMemberDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.JCode.Gym_Buddy.entity.GymMember;
 import com.JCode.Gym_Buddy.service.GymMemberService;
 
 import jakarta.validation.Valid;
@@ -26,13 +25,13 @@ public class LoginSignupController {
 
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
-        model.addAttribute("gymMember", new GymMember());
+        model.addAttribute("gymMember", new GymMemberDto());
         return "register";
     }
 
     @PostMapping("/register")
     public String registerMember(
-            @Valid @ModelAttribute("gymMember") GymMember gymMember,
+            @Valid @ModelAttribute("gymMember") GymMemberDto gymMember,
             BindingResult bindingResult,
             Model model,
             RedirectAttributes redirectAttributes) {
@@ -42,7 +41,7 @@ public class LoginSignupController {
             return "register";
         }
 
-        // 2. Try saving user
+        // 2. Try saving user (DTO passed directly)
         boolean isAdded = gymMemberService.addMember(gymMember);
 
         // 3. Success
@@ -62,5 +61,6 @@ public class LoginSignupController {
 
         return "register";
     }
+
 
 }

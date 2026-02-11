@@ -1,15 +1,16 @@
 package com.JCode.Gym_Buddy.service;
 
-import java.util.List;
-
+import com.JCode.Gym_Buddy.dto.GymMemberDto;
+import com.JCode.Gym_Buddy.entity.GymMember;
+import com.JCode.Gym_Buddy.repository.GymMemberRepo;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.JCode.Gym_Buddy.entity.GymMember;
-import com.JCode.Gym_Buddy.repository.GymMemberRepo;
-
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,25 +18,37 @@ public class GymMemberServiceImpl implements GymMemberService {
 
     private final GymMemberRepo gymMemberRepo;
     private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
     @Override
     @Transactional(readOnly = true)
-    public List<GymMember> getAllMembers() {
-        return gymMemberRepo.findAll();
+    public List<GymMemberDto> getAllMembers() {
+        return gymMemberRepo.findAll()
+                .stream()
+                .map(member -> modelMapper.map(member, GymMemberDto.class))
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public GymMember getMemberById(Long memberId) {
-        return gymMemberRepo.findById(memberId).orElse(null);
+    public GymMemberDto getMemberById(Long memberId) {
+        return gymMemberRepo.findById(memberId)
+                .map(member -> modelMapper.map(member, GymMemberDto.class))
+                .orElse(null);
     }
 
     @Override
     @Transactional
-    public boolean addMember(GymMember gymMember) {
+    public boolean addMember(GymMemberDto gymMemberDto) {
         try {
-            gymMember.setPassword(passwordEncoder.encode(gymMember.getPassword()));
-            gymMemberRepo.save(gymMember);
+            // Map DTO → Entity
+            GymMember member = modelMapper.map(gymMemberDto, GymMember.class);
+
+            // Encode password
+            member.setPassword(passwordEncoder.encode(member.getPassword()));
+
+            member.setRole("ROLE_MEMBER");
+            gymMemberRepo.save(member);
             return true;
         } catch (Exception e) {
             return false;
@@ -44,22 +57,23 @@ public class GymMemberServiceImpl implements GymMemberService {
 
     @Override
     @Transactional
-    public boolean updateMember(Long memberId, GymMember updatedMember) {
-        GymMember existingMember = getMemberById(memberId);
-
+    public boolean updateMember(Long memberId, GymMemberDto updatedMemberDto) {
+        GymMember existingMember = gymMemberRepo.findById(memberId).orElse(null);
         if (existingMember == null) return false;
 
-        existingMember.setName(updatedMember.getName());
-        existingMember.setEmail(updatedMember.getEmail());
-        existingMember.setPhoneNumber(updatedMember.getPhoneNumber());
-        existingMember.setAge(updatedMember.getAge());
-        existingMember.setMembershipType(updatedMember.getMembershipType());
-        existingMember.setUsername(updatedMember.getUsername());
+        // Update fields
+        existingMember.setName(updatedMemberDto.getName());
+        existingMember.setEmail(updatedMemberDto.getEmail());
+        existingMember.setPhoneNumber(updatedMemberDto.getPhoneNumber());
+        existingMember.setAge(updatedMemberDto.getAge());
+        existingMember.setMembershipType(updatedMemberDto.getMembershipType());
+        existingMember.setUsername(updatedMemberDto.getUsername());
 
-        if (updatedMember.getPassword() != null && !updatedMember.getPassword().isBlank()) {
-            existingMember.setPassword(
-                    passwordEncoder.encode(updatedMember.getPassword())
-            );
+        if (updatedMemberDto.getPassword() != null && !updatedMemberDto.getPassword().isBlank()) {
+            existingMember.setPassword(passwordEncoder.encode(updatedMemberDto.getPassword()));
+        }
+        if (updatedMemberDto.getRole() != null && !updatedMemberDto.getRole().isBlank()) {
+            existingMember.setRole(updatedMemberDto.getRole());
         }
 
         gymMemberRepo.save(existingMember);
