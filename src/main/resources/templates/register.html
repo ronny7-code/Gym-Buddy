@@ -4,176 +4,139 @@
 <section>
 
   <!-- Registration Section Begin -->
-  <section
-    class="login-section spad"
-    style="
-      background:
-        linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
-        url('/img/hero/hero-1.jpg');
-      background-size: cover;
-      background-position: center;
-      min-height: calc(100vh - 200px);
-      padding-top: 100px;
-      display: flex;
-      align-items: center;
-    "
-  >
+  <section class="register-section">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8">
-          <div class="login-container" style="margin-top: 50px">
+          <div class="register-wrapper">
 
-            <div class="section-title text-center mb-5">
-              <span class="text-warning"
-                style="font-size: 18px; letter-spacing: 2px; display: block; margin-bottom: 15px;">
-                JOIN US
-              </span>
-              <h2 class="text-white mt-2"
-                style="font-size: 42px; font-weight: 700; margin-top: 20px !important;">
-                CREATE ACCOUNT
-              </h2>
+            <div class="register-title text-center">
+              <span class="register-eyebrow">JOIN US</span>
+              <h2 class="register-heading">CREATE ACCOUNT</h2>
             </div>
 
-            <div class="login-form bg-dark p-5 rounded"
-              style="
-                background: rgba(20, 20, 20, 0.95) !important;
-                border: 1px solid #333;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-              ">
+            <div class="register-card">
 
-              <!-- SUCCESS MESSAGE -->
-              <div th:if="${success}" class="alert alert-success text-center mb-4">
+              <!-- SUCCESS MESSAGE (flash from redirect — put this in login.html too) -->
+              <div th:if="${success}" class="alert-msg alert-msg--success">
+                <i class="fa fa-check-circle"></i>
                 <span th:text="${success}"></span>
               </div>
 
               <!-- ERROR MESSAGE -->
-              <div th:if="${error}" class="alert alert-danger text-center mb-4">
+              <div th:if="${error}" class="alert-msg alert-msg--error">
+                <i class="fa fa-exclamation-circle"></i>
                 <span th:text="${error}"></span>
               </div>
 
               <form th:action="@{/register}" method="post" th:object="${gymMember}">
 
                 <!-- Full Name -->
-                <div class="form-group mb-4">
-                  <label class="form-label text-white fw-bold mb-2">
-                    <i class="fa fa-user me-2 text-warning"></i> Full Name
+                <div class="field-group">
+                  <label class="field-label">
+                    <i class="fa fa-user field-icon"></i> Full Name
                   </label>
                   <input type="text" th:field="*{name}"
-                    class="form-control form-control-lg bg-dark text-white border-secondary"
-                    placeholder="Enter your full name"
-                    style="background: rgba(0,0,0,0.3) !important; padding: 15px;">
-                  <small class="text-danger"
+                    class="field-input"
+                    placeholder="Enter your full name">
+                  <small class="field-error"
                          th:if="${#fields.hasErrors('name')}"
                          th:errors="*{name}"></small>
                 </div>
 
                 <!-- Email -->
-                <div class="form-group mb-4">
-                  <label class="form-label text-white fw-bold mb-2">
-                    <i class="fa fa-envelope me-2 text-warning"></i> Email
+                <div class="field-group">
+                  <label class="field-label">
+                    <i class="fa fa-envelope field-icon"></i> Email
                   </label>
                   <input type="email" th:field="*{email}"
-                    class="form-control form-control-lg bg-dark text-white border-secondary"
-                    placeholder="Enter your email"
-                    style="background: rgba(0,0,0,0.3) !important; padding: 15px;">
-                  <small class="text-danger"
+                    class="field-input"
+                    placeholder="Enter your email">
+                  <small class="field-error"
                          th:if="${#fields.hasErrors('email')}"
                          th:errors="*{email}"></small>
                 </div>
 
                 <!-- Phone -->
-                <div class="form-group mb-4">
-                  <label class="form-label text-white fw-bold mb-2">
-                    <i class="fa fa-phone me-2 text-warning"></i> Phone Number
+                <div class="field-group">
+                  <label class="field-label">
+                    <i class="fa fa-phone field-icon"></i> Phone Number
                   </label>
                   <input type="text" th:field="*{phoneNumber}"
-                    class="form-control form-control-lg bg-dark text-white border-secondary"
-                    placeholder="Enter your phone number"
-                    style="background: rgba(0,0,0,0.3) !important; padding: 15px;">
-                  <small class="text-danger"
+                    class="field-input"
+                    placeholder="Enter your phone number">
+                  <small class="field-error"
                          th:if="${#fields.hasErrors('phoneNumber')}"
                          th:errors="*{phoneNumber}"></small>
                 </div>
 
                 <!-- Age -->
-                <div class="form-group mb-4">
-                  <label class="form-label text-white fw-bold mb-2">
-                    <i class="fa fa-calendar me-2 text-warning"></i> Age
+                <div class="field-group">
+                  <label class="field-label">
+                    <i class="fa fa-calendar field-icon"></i> Age
                   </label>
                   <input type="number" th:field="*{age}"
-                    class="form-control form-control-lg bg-dark text-white border-secondary"
-                    placeholder="Enter your age"
-                    style="background: rgba(0,0,0,0.3) !important; padding: 15px;">
-                  <small class="text-danger"
+                    class="field-input"
+                    placeholder="Enter your age">
+                  <small class="field-error"
                          th:if="${#fields.hasErrors('age')}"
                          th:errors="*{age}"></small>
                 </div>
 
                 <!-- Membership Type -->
-                <div class="form-group mb-4">
-                  <label class="form-label text-white fw-bold mb-2">
-                    <i class="fa fa-id-card me-2 text-warning"></i> Membership Type
+                <div class="field-group">
+                  <label class="field-label">
+                    <i class="fa fa-id-card field-icon"></i> Membership Type
                   </label>
-                  <select th:field="*{membershipType}"
-                    class="form-control form-control-lg bg-dark text-white border-secondary"
-                    style="height: 56px; line-height: 56px; padding: 10px;">
+                  <select th:field="*{membershipType}" class="field-input field-select">
                     <option value="">Select Membership</option>
                     <option value="Basic">Basic</option>
                     <option value="Premium">Premium</option>
                     <option value="VIP">VIP</option>
                   </select>
-                  <small class="text-danger"
+                  <small class="field-error"
                          th:if="${#fields.hasErrors('membershipType')}"
                          th:errors="*{membershipType}"></small>
                 </div>
 
                 <!-- Username -->
-                <div class="form-group mb-4">
-                  <label class="form-label text-white fw-bold mb-2">
-                    <i class="fa fa-user-circle me-2 text-warning"></i> Username
+                <div class="field-group">
+                  <label class="field-label">
+                    <i class="fa fa-user-circle field-icon"></i> Username
                   </label>
                   <input type="text" th:field="*{username}"
-                    class="form-control form-control-lg bg-dark text-white border-secondary"
-                    placeholder="Choose a username"
-                    style="background: rgba(0,0,0,0.3) !important; padding: 15px;">
-                  <small class="text-danger"
+                    class="field-input"
+                    placeholder="Choose a username">
+                  <small class="field-error"
                          th:if="${#fields.hasErrors('username')}"
                          th:errors="*{username}"></small>
                 </div>
 
                 <!-- Password -->
-                <div class="form-group mb-4">
-                  <label class="form-label text-white fw-bold mb-2">
-                    <i class="fa fa-lock me-2 text-warning"></i> Password
+                <div class="field-group">
+                  <label class="field-label">
+                    <i class="fa fa-lock field-icon"></i> Password
                   </label>
                   <input type="password" th:field="*{password}"
-                    class="form-control form-control-lg bg-dark text-white border-secondary"
-                    placeholder="Create a password"
-                    style="background: rgba(0,0,0,0.3) !important; padding: 15px;">
-                  <small class="text-danger"
+                    class="field-input"
+                    placeholder="Create a password">
+                  <small class="field-error"
                          th:if="${#fields.hasErrors('password')}"
                          th:errors="*{password}"></small>
                 </div>
 
                 <!-- Submit -->
-                <div class="d-grid gap-2 mb-4">
-                  <button type="submit" class="btn btn-lg"
-                    style="
-                      background: linear-gradient(45deg, #f36100, #ff7a2f);
-                      border: none;
-                      padding: 16px;
-                      font-weight: 600;
-                      letter-spacing: 1px;">
-                    <i class="fa fa-user-plus me-2"></i> REGISTER NOW
+                <div class="field-group">
+                  <button type="submit" class="register-btn">
+                    <i class="fa fa-user-plus"></i> REGISTER NOW
                   </button>
                 </div>
 
                 <!-- Login Link -->
-                <div class="text-center pt-4 border-top border-secondary">
-                  <p class="mb-0 text-light">
-                    Already have an account?
-                    <a th:href="@{/login}" class="text-warning fw-bold text-decoration-none">
-                      Login here <i class="fa fa-arrow-right ms-1"></i>
+                <div class="register-footer">
+                  <p>Already have an account?
+                    <a th:href="@{/login}" class="register-link">
+                      Login here <i class="fa fa-arrow-right"></i>
                     </a>
                   </p>
                 </div>
