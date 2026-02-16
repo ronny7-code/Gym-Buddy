@@ -2,79 +2,74 @@ package com.JCode.Gym_Buddy.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+
+import com.JCode.Gym_Buddy.dto.GymMemberDto;
+import com.JCode.Gym_Buddy.entity.ContactForm;
+import com.JCode.Gym_Buddy.service.GymMemberService;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.JCode.Gym_Buddy.dto.GymMemberDto;
-import com.JCode.Gym_Buddy.service.GymMemberService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import jakarta.validation.Valid;
+import com.JCode.Gym_Buddy.service.ContactFormService;
+
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/member")
 public class MemberController {
 
- private final GymMemberService gymMemberService;
+    private final GymMemberService gymMemberService;
+    private final ContactFormService contactFormService;
 
-    @GetMapping("/login")
-    public String showLoginPage() {
-        return "login";
-    }
+    @GetMapping("/profile")
+    public String getMemberProfile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        GymMemberDto member = gymMemberService.findMemberByUsername(userDetails.getUsername());
 
-    @GetMapping("/register")
-    public String showRegisterPage(Model model) {
-        model.addAttribute("gymMember", new GymMemberDto());
-        return "register";
-    }
-
-    @PostMapping("/register")
-    public String registerMember(
-            @Valid @ModelAttribute("gymMember") GymMemberDto gymMember,
-            BindingResult bindingResult,
-            Model model,
-            RedirectAttributes redirectAttributes) {
-
-        // 1. Validation errors
-        if (bindingResult.hasErrors()) {
-            return "register";
-        }
-
-        // 2. Try saving user (DTO passed directly)
-        boolean isAdded = gymMemberService.addMember(gymMember);
-
-        // 3. Success
-        if (isAdded) {
-            redirectAttributes.addFlashAttribute(
-                    "success",
-                    "Registration successful! Please login."
-            );
+        if (member == null) {
             return "redirect:/login";
         }
 
-        // 4. Failure (duplicate email / username / phone)
-        model.addAttribute(
-                "error",
-                "User is not registered. Email, username, or phone already exists."
-        );
-
-        return "register";
+        model.addAttribute("member", member);
+        return "member/memberProfile";
     }
 
-@GetMapping("/member/profile")
-public String getMemberProfile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-    GymMemberDto member = gymMemberService.findMemberByUsername(userDetails.getUsername());
-
-    if (member == null) {
-        return "redirect:/login";
+    @GetMapping("/aboutUs")
+    public String getMemberAboutPage() {
+        return "member/memberAbout";
     }
 
-    model.addAttribute("member", member);
-    return "member/memberProfile";
-}
+    @GetMapping("/contact")
+    public String getMemberContactPage(Model model) {
+        model.addAttribute("contactForm", new ContactForm());
+        return "member/memberContact";
+    }
 
+    @GetMapping("/team")
+    public String getMemberTeamPage() {
+        return "member/memberTeam";
+    }
+
+    @GetMapping("/services")
+    public String getMemberServicesPage() {
+        return "member/memberServices";
+    }
+
+    // Handling contact form submission
+    @PostMapping("/contact")
+    public String contactForm(@ModelAttribute ContactForm contactForm,
+            RedirectAttributes redirectAttributes) {
+        boolean saved = contactFormService.saveContactForm(contactForm);
+        if (saved) {
+            redirectAttributes.addFlashAttribute("success", "Message sent successfully!");
+            return "redirect:/member/contact";
+        }
+        redirectAttributes.addFlashAttribute("error", "Failed to send message");
+        return "redirect:/member/contact";
+    }
 }
