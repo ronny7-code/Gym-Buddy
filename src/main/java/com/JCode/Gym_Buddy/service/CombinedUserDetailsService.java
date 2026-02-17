@@ -33,7 +33,7 @@ public class CombinedUserDetailsService implements UserDetailsService {
         }
 
         // If not found, try to find GymMember
-        GymMember member = memberRepository.findByUsername(username);
+        GymMember member = memberRepository.findByUsername(username).orElse(null);
         if (member != null) {
             GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_MEMBER");
             return new User(member.getUsername(), member.getPassword(), Collections.singleton(authority));

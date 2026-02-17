@@ -58,7 +58,7 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .csrf(csrf -> csrf.disable())
-                .authenticationProvider(authenticationProvider); // inject DaoAuthenticationProvider
+                .authenticationProvider(authenticationProvider); // BCrypt Password 
 
         return http.build();
     }

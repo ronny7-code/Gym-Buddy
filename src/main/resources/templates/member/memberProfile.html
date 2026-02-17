@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{member/memberBase :: Layout(~{::section})}">
+
+<body>
+    <section>
+
+        <!-- Profile Hero Section Begin -->
+        <section class="profile-hero-section set-bg" data-setbg="/img/hero/hero-1.jpg">
+            <div class="profile-hero-overlay"></div>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-12">
+                        <div class="profile-hero-content text-center">
+                            <div class="profile-avatar-wrapper">
+                                <div class="profile-avatar">
+                                    <img th:src="@{/img/team/team-2.jpg}" alt="Member Avatar" />
+                                    <div class="avatar-ring"></div>
+                                </div>
+                                <div class="member-badge" th:text="${member.membershipType}">PREMIUM</div>
+                            </div>
+                            <h1 class="profile-hero-name" th:text="${member.name}">John Doe</h1>
+                            <p class="profile-hero-username">@<span th:text="${member.username}">johndoe</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Profile Hero Section End -->
+
+        <!-- Profile Stats Bar Begin -->
+        <div class="profile-stats-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="stat-item">
+                            <span class="stat-number">126</span>
+                            <span class="stat-label">Sessions</span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-item">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Classes</span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-item">
+                            <span class="stat-number">14</span>
+                            <span class="stat-label">Months</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Profile Stats Bar End -->
+
+        <!-- Profile Body Section Begin -->
+        <section class="profile-body-section spad">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Left Column -->
+                    <div class="col-lg-4 col-md-12">
+
+                        <!-- Member Info Card -->
+                        <div class="profile-card">
+                            <div class="profile-card-header">
+                                <span class="flaticon-002-dumbell"></span>
+                                <h4>Member Information</h4>
+                            </div>
+                            <ul class="profile-info-list">
+                                <li>
+                                    <span class="info-label"><i class="fa fa-user"></i> Full Name</span>
+                                    <span class="info-value" th:text="${member.name}">John Doe</span>
+                                </li>
+                                <li>
+                                    <span class="info-label"><i class="fa fa-at"></i> Username</span>
+                                    <span class="info-value" th:text="${member.username}">johndoe</span>
+                                </li>
+                                <li>
+                                    <span class="info-label"><i class="fa fa-envelope"></i> Email</span>
+                                    <span class="info-value" th:text="${member.email}">john@email.com</span>
+                                </li>
+                                <li>
+                                    <span class="info-label"><i class="fa fa-phone"></i> Phone</span>
+                                    <span class="info-value" th:text="${member.phoneNumber}">9800000000</span>
+                                </li>
+                                <li>
+                                    <span class="info-label"><i class="fa fa-calendar"></i> Age</span>
+                                    <span class="info-value" th:text="${member.age} + ' years'">25 years</span>
+                                </li>
+                                <li>
+                                    <span class="info-label"><i class="fa fa-id-card"></i> Member ID</span>
+                                    <span class="info-value" th:text="'#' + ${member.id}">#001</span>
+                                </li>
+                            </ul>
+                            <div class="profile-card-actions">
+                                <a th:href="@{/member/edit/{id}(id=${member.id})}" class="primary-btn profile-edit-btn">
+                                    <i class="fa fa-pencil"></i> Edit Profile
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Membership Card -->
+                        <div class="membership-card">
+                            <div class="mc-glow"></div>
+                            <div class="mc-content">
+                                <div class="mc-top">
+                                    <span class="mc-label">GymBuddy</span>
+                                    <span class="mc-chip" th:text="${member.membershipType}">PREMIUM</span>
+                                </div>
+                                <div class="mc-middle">
+                                    <span class="mc-name" th:text="${member.name}">John Doe</span>
+                                    <span class="mc-since">Member Since 2024</span>
+                                </div>
+                                <div class="mc-bottom">
+                                    <div class="mc-id">
+                                        <i class="fa fa-shield"></i>
+                                        <span th:text="'ID: #' + ${member.id}">ID: #001</span>
+                                    </div>
+                                    <div class="mc-dots">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- End Left Column -->
+
+                    <!-- Right Column -->
+                    <div class="col-lg-8 col-md-12">
+
+                        <!-- Membership Plan -->
+                        <div class="profile-section-block">
+                            <div class="psb-header">
+                                <span class="flaticon-014-heart-beat"></span>
+                                <h4>Membership Plan</h4>
+                            </div>
+                            <div class="plan-cards-row">
+                                <div class="plan-card" th:classappend="${member.membershipType == 'Class drop-in'} ? 'active' : ''">
+                                    <div class="plan-icon"><i class="fa fa-ticket"></i></div>
+                                    <h5>Class Drop-In</h5>
+                                    <p class="plan-price">$39<span>/class</span></p>
+                                    <span class="plan-check" th:if="${member.membershipType == 'Class drop-in'}">
+                                        <i class="fa fa-check-circle"></i> Current Plan
+                                    </span>
+                                </div>
+                                <div class="plan-card" th:classappend="${member.membershipType == '6 Month unlimited'} ? 'active' : ''">
+                                    <div class="plan-icon"><i class="fa fa-star"></i></div>
+                                    <h5>6 Month Unlimited</h5>
+                                    <p class="plan-price">$59<span>/6mo</span></p>
+                                    <span class="plan-check" th:if="${member.membershipType == '6 Month unlimited'}">
+                                        <i class="fa fa-check-circle"></i> Current Plan
+                                    </span>
+                                </div>
+                                <div class="plan-card" th:classappend="${member.membershipType == '12 Month unlimited'} ? 'active' : ''">
+                                    <div class="plan-icon"><i class="fa fa-trophy"></i></div>
+                                    <h5>12 Month Unlimited</h5>
+                                    <p class="plan-price">$99<span>/yr</span></p>
+                                    <span class="plan-check" th:if="${member.membershipType == '12 Month unlimited'}">
+                                        <i class="fa fa-check-circle"></i> Current Plan
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="plan-upgrade-strip">
+                                <p>Want to unlock more benefits?</p>
+                                <a href="#" class="primary-btn btn-normal plan-upgrade-btn">Upgrade Plan</a>
+                            </div>
+                        </div>
+
+                        <!-- Available Classes -->
+                        <div class="profile-section-block">
+                            <div class="psb-header">
+                                <span class="flaticon-034-stationary-bike"></span>
+                                <h4>Available Classes</h4>
+                            </div>
+                            <div class="classes-grid">
+                                <div class="class-tag"><i class="fa fa-users"></i> Weightlifting</div>
+                                <div class="class-tag active"><i class="fa fa-bicycle"></i> Indoor Cycling</div>
+                                <div class="class-tag"><i class="fa fa-fire"></i> Kettlebell Power</div>
+                                <div class="class-tag active"><i class="fa fa-hand-rock-o"></i> Boxing</div>
+                                <div class="class-tag"><i class="fa fa-child"></i> Yoga</div>
+                                <div class="class-tag"><i class="fa fa-bolt"></i> HIIT</div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="profile-section-block">
+                            <div class="psb-header">
+                                <span class="flaticon-033-juice"></span>
+                                <h4>Quick Actions</h4>
+                            </div>
+                            <div class="quick-actions-grid">
+                                <a href="#" class="qa-btn">
+                                    <i class="fa fa-calendar-plus-o"></i>
+                                    <span>Book Class</span>
+                                </a>
+                                <a href="#" class="qa-btn">
+                                    <i class="fa fa-user-plus"></i>
+                                    <span>Get Trainer</span>
+                                </a>
+                                <a href="#" class="qa-btn">
+                                    <i class="fa fa-cutlery"></i>
+                                    <span>Nutrition Plan</span>
+                                </a>
+                                <a th:href="@{/member/delete/{id}(id=${member.id})}"
+                                   class="qa-btn qa-btn-danger"
+                                   onclick="return confirm('Are you sure you want to delete this account?')">
+                                    <i class="fa fa-trash"></i>
+                                    <span>Delete Account</span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- End Right Column -->
+
+                </div>
+            </div>
+        </section>
+        <!-- Profile Body Section End -->
+
+        <!-- Get In Touch Section Begin -->
+        <div class="gettouch-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="gt-text">
+                            <i class="fa fa-map-marker"></i>
+                            <p>Kapan, Kathmandu - Nepal<br /> 44600</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="gt-text">
+                            <i class="fa fa-mobile"></i>
+                            <ul>
+                                <li>+977 9741875904</li>
+                                <li>125-668-886</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="gt-text email">
+                            <i class="fa fa-envelope"></i>
+                            <p>GymBuddy@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Get In Touch Section End -->
+
+    </section>
+</body>
+
+</html>

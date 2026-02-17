@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GymMemberDto {
 
+    private Long id;  
+
     @NotBlank
     @Size(min = 2, max = 100)
     private String name;
@@ -34,9 +36,8 @@ public class GymMemberDto {
     private String username;
 
     @NotBlank
-    @Size(min = 8)
+    @Size(min = 4)
     private String password;
 
-    @NotBlank
     private String role;
 }

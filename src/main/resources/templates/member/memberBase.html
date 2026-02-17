@@ -22,6 +22,32 @@
     <link rel="stylesheet" th:href="@{/css/magnific-popup.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/slicknav.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/member-profile.css}" type="text/css">
+
+    <style>
+        .logout-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            color: #ffffff;
+            font-family: "Muli", sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s ease;
+        }
+        .logout-btn:hover {
+            color: #e53637;
+        }
+        .logout-btn i {
+            font-size: 16px;
+        }
+    </style>
 </head>
 
 <body>
@@ -71,7 +97,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="logo">
-                        <a th:href="@{/}">
+                        <a th:href="@{/member/profile}">
                             <img th:src="@{/img/logo.png}" alt="Gym Buddy Logo">
                         </a>
                     </div>
@@ -90,9 +116,9 @@
                 <div class="col-lg-3">
                     <div class="top-option">
                         <div class="loginRegister">
-                            <a th:href="@{/login}">
-                                <i class="fa fa-user-circle-o"></i>
-                                <span>Login / Register</span>
+                            <a th:href="@{/logout}">
+                                <i class="fa fa-sign-out"></i>
+                                <span>Log out</span>
                             </a>
                         </div>
                     </div>

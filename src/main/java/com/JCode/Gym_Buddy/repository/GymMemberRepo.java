@@ -1,5 +1,7 @@
 package com.JCode.Gym_Buddy.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +13,6 @@ public interface GymMemberRepo extends JpaRepository<GymMember, Long> {
     boolean existsByUsername(String username);
     boolean existsByPhoneNumber(String phoneNumber);
     GymMember findByEmail(String email);
-    GymMember findByUsername(String username);
+    Optional<GymMember> findByUsername(String username);
+    
 }

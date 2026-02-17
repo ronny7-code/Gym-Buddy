@@ -87,4 +87,12 @@ public class GymMemberServiceImpl implements GymMemberService {
         gymMemberRepo.deleteById(memberId);
         return true;
     }
+
+@Override
+@Transactional(readOnly = true)
+public GymMemberDto findMemberByUsername(String username) {
+    return gymMemberRepo.findByUsername(username)
+            .map(member -> modelMapper.map(member, GymMemberDto.class))
+            .orElse(null);
+}
 }

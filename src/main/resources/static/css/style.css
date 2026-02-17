@@ -3621,3 +3621,582 @@ ol {
     font-size: 12px;
     margin-left: 4px;
 }
+/* =============================================
+   member-profile.css
+   GymBuddy - Member Profile Page Styles
+   Place in: src/main/resources/static/css/member-profile.css
+   Link in base.html <head>:
+   <link rel="stylesheet" th:href="@{/css/member-profile.css}" type="text/css">
+   ============================================= */
+
+/* -----------------------------------------------
+   1. Profile Hero
+----------------------------------------------- */
+.profile-hero-section {
+    position: relative;
+    padding: 110px 0 70px;
+    background-color: #111;
+    background-size: cover;
+    background-position: center top;
+    overflow: hidden;
+}
+
+.profile-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.72) 0%,
+        rgba(17,17,17,0.93) 60%,
+        #111111 100%
+    );
+    z-index: 1;
+}
+
+.profile-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.profile-avatar-wrapper {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 12px;
+}
+
+.profile-avatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #e53637;
+    display: block;
+}
+
+.avatar-ring {
+    position: absolute;
+    inset: -7px;
+    border-radius: 50%;
+    border: 2px dashed rgba(229,54,55,0.45);
+    animation: ringRotate 18s linear infinite;
+}
+
+@keyframes ringRotate {
+    to { transform: rotate(360deg); }
+}
+
+.member-badge {
+    display: inline-block;
+    background: #e53637;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+}
+
+.profile-hero-name {
+    color: #ffffff;
+    font-size: 36px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 10px 0 6px;
+}
+
+.profile-hero-username {
+    color: #888;
+    font-size: 15px;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* -----------------------------------------------
+   2. Stats Bar
+----------------------------------------------- */
+.profile-stats-bar {
+    background: #1a1a1a;
+    border-top: 1px solid #2a2a2a;
+    border-bottom: 1px solid #2a2a2a;
+    padding: 22px 0;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 8px 0;
+    border-right: 1px solid #2a2a2a;
+}
+
+.stat-item:last-child {
+    border-right: none;
+}
+
+.stat-number {
+    display: block;
+    font-size: 32px;
+    font-weight: 800;
+    color: #e53637;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #888;
+}
+
+/* -----------------------------------------------
+   3. Profile Body
+----------------------------------------------- */
+.profile-body-section {
+    background: #111111;
+    padding: 80px 0;
+}
+
+/* -----------------------------------------------
+   4. Profile Info Card
+----------------------------------------------- */
+.profile-card {
+    background: #1c1c1c;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin-bottom: 24px;
+}
+
+.profile-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.profile-card-header span[class^="flaticon"] {
+    font-size: 22px;
+    color: #e53637;
+}
+
+.profile-card-header h4 {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.profile-info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+}
+
+.profile-info-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.profile-info-list li:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    color: #888;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-label i {
+    color: #e53637;
+    width: 14px;
+    text-align: center;
+}
+
+.info-value {
+    color: #cccccc;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+    max-width: 55%;
+    word-break: break-word;
+}
+
+.profile-card-actions {
+    text-align: center;
+}
+
+.profile-edit-btn {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+}
+
+/* -----------------------------------------------
+   5. Membership Card
+----------------------------------------------- */
+.membership-card {
+    position: relative;
+    background: linear-gradient(135deg, #1e1e1e 0%, #2a0a0a 50%, #1e1e1e 100%);
+    border: 1px solid rgba(229,54,55,0.3);
+    border-radius: 14px;
+    padding: 26px 24px;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.mc-glow {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 130px;
+    height: 130px;
+    background: radial-gradient(circle, rgba(229,54,55,0.28) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.mc-content {
+    position: relative;
+    z-index: 1;
+}
+
+.mc-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.mc-label {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.mc-chip {
+    background: #e53637;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.mc-middle {
+    margin-bottom: 20px;
+}
+
+.mc-name {
+    display: block;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.mc-since {
+    display: block;
+    color: #888;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.mc-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mc-id {
+    color: #888;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mc-id i { color: #e53637; }
+
+.mc-dots {
+    display: flex;
+    gap: 5px;
+}
+
+.mc-dots span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    display: block;
+}
+
+.mc-dots span:first-child {
+    background: rgba(229,54,55,0.7);
+}
+
+/* -----------------------------------------------
+   6. Section Blocks
+----------------------------------------------- */
+.profile-section-block {
+    background: #1c1c1c;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin-bottom: 24px;
+}
+
+.psb-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.psb-header span[class^="flaticon"] {
+    font-size: 22px;
+    color: #e53637;
+}
+
+.psb-header h4 {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* -----------------------------------------------
+   7. Plan Cards
+----------------------------------------------- */
+.plan-cards-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.plan-card {
+    flex: 1;
+    min-width: 90px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 18px 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.plan-card:hover {
+    border-color: rgba(229,54,55,0.4);
+    transform: translateY(-2px);
+}
+
+.plan-card.active {
+    background: rgba(229,54,55,0.08);
+    border-color: #e53637;
+}
+
+.plan-icon {
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.plan-card.active .plan-icon { color: #e53637; }
+
+.plan-card h5 {
+    color: #cccccc;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 8px;
+}
+
+.plan-price {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 6px;
+    line-height: 1;
+}
+
+.plan-price span {
+    font-size: 11px;
+    color: #888;
+    font-weight: 400;
+}
+
+.plan-check {
+    display: block;
+    font-size: 11px;
+    color: #e53637;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.plan-upgrade-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(229,54,55,0.05);
+    border: 1px dashed rgba(229,54,55,0.25);
+    border-radius: 8px;
+    padding: 12px 18px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.plan-upgrade-strip p {
+    color: #888;
+    font-size: 13px;
+    margin: 0;
+}
+
+.plan-upgrade-btn {
+    font-size: 12px !important;
+    padding: 8px 20px !important;
+}
+
+/* -----------------------------------------------
+   8. Classes Grid
+----------------------------------------------- */
+.classes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.class-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #2a2a2a;
+    border-radius: 30px;
+    color: #888;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.class-tag:hover {
+    border-color: rgba(229,54,55,0.4);
+    color: #cccccc;
+}
+
+.class-tag.active {
+    background: rgba(229,54,55,0.1);
+    border-color: #e53637;
+    color: #ffffff;
+}
+
+.class-tag.active i { color: #e53637; }
+
+/* -----------------------------------------------
+   9. Quick Actions
+----------------------------------------------- */
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.qa-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    color: #888;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.qa-btn i {
+    font-size: 22px;
+    color: #e53637;
+    transition: all 0.3s ease;
+}
+
+.qa-btn:hover {
+    background: rgba(229,54,55,0.08);
+    border-color: #e53637;
+    color: #ffffff;
+    transform: translateY(-3px);
+}
+
+.qa-btn-danger { border-color: rgba(180,30,30,0.4); }
+.qa-btn-danger i { color: #cc3333; }
+.qa-btn-danger:hover {
+    background: rgba(200,30,30,0.12);
+    border-color: #cc3333;
+}
+
+/* -----------------------------------------------
+   10. Responsive
+----------------------------------------------- */
+@media (max-width: 991px) {
+    .profile-hero-section { padding: 80px 0 50px; }
+    .profile-body-section { padding: 60px 0; }
+}
+
+@media (max-width: 767px) {
+    .profile-hero-name { font-size: 26px; }
+    .quick-actions-grid { grid-template-columns: repeat(2, 1fr); }
+    .plan-cards-row { flex-direction: column; }
+    .stat-item {
+        border-right: none;
+        border-bottom: 1px solid #2a2a2a;
+        padding: 12px 0;
+    }
+    .stat-item:last-child { border-bottom: none; }
+    .plan-upgrade-strip { flex-direction: column; text-align: center; }
+}
+
+@media (max-width: 480px) {
+    .profile-avatar,
+    .profile-avatar img { width: 90px; height: 90px; }
+    .profile-card,
+    .membership-card,
+    .profile-section-block { padding: 20px 16px; }
+}
