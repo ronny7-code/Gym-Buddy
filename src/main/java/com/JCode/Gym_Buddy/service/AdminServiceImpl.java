@@ -8,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +19,7 @@ public class AdminServiceImpl implements AdminService {
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper mapper;
 
+    // Add admin
     @Override
     @Transactional
     public boolean addAdmin(AdminDto adminDto) {
@@ -43,6 +43,7 @@ public class AdminServiceImpl implements AdminService {
         return true;
     }
 
+    // Get all admins
     @Override
     @Transactional(readOnly = true)
     public List<AdminDto> getAllAdmins() {
@@ -52,6 +53,7 @@ public class AdminServiceImpl implements AdminService {
                 .collect(Collectors.toList());
     }
 
+    // Get single admin by their id
     @Override
     @Transactional(readOnly = true)
     public AdminDto getAdminById(Long id) {
@@ -60,6 +62,7 @@ public class AdminServiceImpl implements AdminService {
                 .orElse(null);
     }
 
+    // Update admin
     @Override
     @Transactional
     public boolean updateAdmin(Long id, AdminDto newAdmin) {
@@ -80,10 +83,11 @@ public class AdminServiceImpl implements AdminService {
             admin.setRole(newAdmin.getRole());
         }
 
-        adminRepository.save(admin); // Save the updated entity
+        adminRepository.save(admin); 
         return true;
     }
 
+    // Delete admin
     @Override
     @Transactional
     public boolean deleteAdmin(Long id) {
@@ -92,5 +96,17 @@ public class AdminServiceImpl implements AdminService {
             return true;
         }
         return false;
+    }
+
+    // Find admin by their username
+    @Override
+    @Transactional(readOnly = true)
+    public AdminDto getByUsername(String username) {
+        Admin admin = adminRepository.findByUsername(username).orElse(null);
+        if(admin != null){
+        AdminDto adminDto = mapper.map(admin, AdminDto.class);
+        return adminDto;
+        }
+        return null;
     }
 }

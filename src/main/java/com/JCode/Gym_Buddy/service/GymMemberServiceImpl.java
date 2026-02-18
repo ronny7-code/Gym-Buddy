@@ -59,8 +59,9 @@ public class GymMemberServiceImpl implements GymMemberService {
     @Transactional
     public boolean updateMember(Long memberId, GymMemberDto updatedMemberDto) {
         GymMember existingMember = gymMemberRepo.findById(memberId).orElse(null);
-        if (existingMember == null) return false;
-
+        if (existingMember == null){
+            return false;
+        }
         // Update fields
         existingMember.setName(updatedMemberDto.getName());
         existingMember.setEmail(updatedMemberDto.getEmail());
@@ -71,9 +72,6 @@ public class GymMemberServiceImpl implements GymMemberService {
 
         if (updatedMemberDto.getPassword() != null && !updatedMemberDto.getPassword().isBlank()) {
             existingMember.setPassword(passwordEncoder.encode(updatedMemberDto.getPassword()));
-        }
-        if (updatedMemberDto.getRole() != null && !updatedMemberDto.getRole().isBlank()) {
-            existingMember.setRole(updatedMemberDto.getRole());
         }
 
         gymMemberRepo.save(existingMember);

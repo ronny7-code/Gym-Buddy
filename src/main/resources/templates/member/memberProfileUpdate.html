@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" th:replace="~{member/memberBase :: Layout(~{::section})}">
+  <body>
+    <section>
+      <!-- Update Profile Section Begin -->
+      <section class="register-section">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+              <div class="register-wrapper">
+                <div class="register-title text-center">
+                  <span class="register-eyebrow">PROFILE</span>
+                  <h2 class="register-heading">UPDATE PROFILE</h2>
+                </div>
+
+                <div class="register-card">
+                  <!-- SUCCESS MESSAGE -->
+                  <div th:if="${success}" class="alert-msg alert-msg--success">
+                    <i class="fa fa-check-circle"></i>
+                    <span th:text="${success}"></span>
+                  </div>
+
+                  <!-- ERROR MESSAGE -->
+                  <div th:if="${error}" class="alert-msg alert-msg--error">
+                    <i class="fa fa-exclamation-circle"></i>
+                    <span th:text="${error}"></span>
+                  </div>
+
+                  <form th:action="@{/member/profile/update}" method="post" th:object="${member}">
+                    <!-- Hidden ID for update -->
+                    <input type="hidden" th:field="*{id}" />
+
+                    <!-- Full Name -->
+                    <div class="field-group">
+                      <label class="field-label">
+                        <i class="fa fa-user field-icon"></i> Full Name
+                      </label>
+                      <input type="text" th:field="*{name}" class="field-input" placeholder="Enter your full name" />
+                      <small class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="field-group">
+                      <label class="field-label">
+                        <i class="fa fa-envelope field-icon"></i> Email
+                      </label>
+                      <input type="email" th:field="*{email}" class="field-input" placeholder="Enter your email" />
+                      <small class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="field-group">
+                      <label class="field-label">
+                        <i class="fa fa-phone field-icon"></i> Phone Number
+                      </label>
+                      <input type="text" th:field="*{phoneNumber}" class="field-input" placeholder="Enter your phone number" />
+                      <small class="field-error" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></small>
+                    </div>
+
+                    <!-- Age -->
+                    <div class="field-group">
+                      <label class="field-label">
+                        <i class="fa fa-calendar field-icon"></i> Age
+                      </label>
+                      <input type="number" th:field="*{age}" class="field-input" placeholder="Enter your age" />
+                      <small class="field-error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></small>
+                    </div>
+
+                    <!-- Membership Type -->
+                    <div class="field-group">
+                      <label class="field-label">
+                        <i class="fa fa-id-card field-icon"></i> Membership Type
+                      </label>
+                      <select th:field="*{membershipType}" class="field-input field-select">
+                        <option value="">Select Membership</option>
+                        <option value="Basic">Basic</option>
+                        <option value="Premium">Premium</option>
+                        <option value="VIP">VIP</option>
+                      </select>
+                      <small class="field-error" th:if="${#fields.hasErrors('membershipType')}" th:errors="*{membershipType}"></small>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="field-group">
+                      <label class="field-label">
+                        <i class="fa fa-user-circle field-icon"></i> Username
+                      </label>
+                      <input type="text" th:field="*{username}" class="field-input" placeholder="Choose a username" />
+                      <small class="field-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
+                    </div>
+
+                    <!-- Password (Optional - leave blank to keep current) -->
+                    <div class="field-group">
+                      <label class="field-label">
+                        <i class="fa fa-lock field-icon"></i> New Password (leave blank to keep current)
+                      </label>
+                      <input type="password" th:field="*{password}" class="field-input" placeholder="Enter new password or leave empty" />
+                      <small class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="field-group">
+                      <button type="submit" class="register-btn">
+                        <i class="fa fa-save"></i> UPDATE PROFILE
+                      </button>
+                    </div>
+
+                    <!-- Back to Profile -->
+                    <div class="register-footer">
+                      <p>
+                        <a th:href="@{/member/profile}" class="register-link">
+                          Back to Profile <i class="fa fa-arrow-left"></i>
+                        </a>
+                      </p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Update Profile Section End -->
+    </section>
+  </body>
+</html>

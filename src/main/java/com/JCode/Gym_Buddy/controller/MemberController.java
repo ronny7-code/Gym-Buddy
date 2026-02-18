@@ -2,15 +2,19 @@ package com.JCode.Gym_Buddy.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import com.JCode.Gym_Buddy.dto.GymMemberDto;
 import com.JCode.Gym_Buddy.entity.ContactForm;
 import com.JCode.Gym_Buddy.service.GymMemberService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -60,16 +64,36 @@ public class MemberController {
         return "member/memberServices";
     }
 
-    // Handling contact form submission
-    @PostMapping("/contact")
-    public String contactForm(@ModelAttribute ContactForm contactForm,
-            RedirectAttributes redirectAttributes) {
-        boolean saved = contactFormService.saveContactForm(contactForm);
-        if (saved) {
-            redirectAttributes.addFlashAttribute("success", "Message sent successfully!");
-            return "redirect:/member/contact";
+    @GetMapping("/profile/update") 
+    public String showUpdateProfile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        GymMemberDto member = gymMemberService.findMemberByUsername(userDetails.getUsername());
+        if (member == null) {
+            return "redirect:/login";
         }
-        redirectAttributes.addFlashAttribute("error", "Failed to send message");
-        return "redirect:/member/contact";
+        model.addAttribute("member", member);
+        return "member/memberProfileUpdate";
     }
+
+    @PostMapping("/profile/update") 
+    public String saveUpdateProfile(
+            @Valid @ModelAttribute("member") GymMemberDto memberDto,
+            BindingResult bindingResult,
+            @AuthenticationPrincipal UserDetails userDetails,
+            RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            return "member/memberProfileUpdate";
+        }
+
+        boolean success = gymMemberService.updateMember(memberDto.getId(), memberDto);
+
+        if (success) {
+            redirectAttributes.addFlashAttribute("success", "Profile updated! ");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Update failed ");
+        }
+
+        return "redirect:/member/profile";
+    }
+
 }

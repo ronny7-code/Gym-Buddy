@@ -2,7 +2,6 @@ package com.JCode.Gym_Buddy.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,9 +34,8 @@ public class Admin {
     private String username;
 
     @Column(nullable = false)
-    @Size(min = 5, max = 100)
+    @Size(min = 4, max = 100)
     private String password;
 
-    @NotBlank
     private String role;
 }

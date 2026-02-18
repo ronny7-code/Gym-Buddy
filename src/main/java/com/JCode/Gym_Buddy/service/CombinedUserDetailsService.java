@@ -26,7 +26,7 @@ public class CombinedUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         // Try to find admin first
-        Admin admin = adminRepository.findByUsername(username);
+        Admin admin = adminRepository.findByUsername(username).orElse(null);
         if (admin != null) {
             GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_ADMIN");
             return new User(admin.getUsername(), admin.getPassword(), Collections.singleton(authority));

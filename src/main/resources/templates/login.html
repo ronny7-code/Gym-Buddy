@@ -5,7 +5,6 @@
   th:replace="~{base :: Layout(~{::section})}"
 >
   <body>
-    <section>
       <!-- Login Section Begin -->
       <section
         class="login-section spad"
@@ -83,7 +82,7 @@
                       <i class="fa fa-exclamation-triangle me-2"></i>
                       Invalid credentials!
                     </strong>
-                    &nbsp;&nbsp;&nbsp; Please check your username and password.
+                    <br> Please check your username and password.
                   </div>
 
                   <!-- 🔒 LOGOUT MESSAGE -->
@@ -104,7 +103,7 @@
                   </div>
 
                   <!-- Login Form -->
-                  <form th:action="@{/login}" method="post">
+                  <form th:action="@{/login}" method="post" id="loginForm">
                     <!-- Username -->
                     <div class="form-group mb-4">
                       <label class="form-label text-white fw-bold">
@@ -138,8 +137,27 @@
                       />
                     </div>
 
+                    <!-- Terms and Policy Checkbox -->
+                    <div class="form-check mb-4">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="termsCheckbox"
+                        required
+                        style="cursor: pointer; width: 18px; height: 18px"
+                      />
+                      <label
+                        class="form-check-label text-light ms-2"
+                        for="termsCheckbox"
+                        style="cursor: pointer"
+                      >
+                        &nbsp I agree to the
+                        <a href="#" class="text-warning">Terms & Conditions</a>
+                      </label>
+                    </div>
+
                     <!-- Submit -->
-                    <div class="d-grid mb-4">
+                    <div class="text-center mb-4">
                       <button
                         type="submit"
                         class="btn btn-lg"
@@ -177,6 +195,6 @@
         </div>
       </section>
       <!-- Login Section End -->
-    </section>
-  </body>
+
+    </body>
 </html>
