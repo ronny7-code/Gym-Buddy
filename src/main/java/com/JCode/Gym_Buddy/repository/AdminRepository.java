@@ -1,13 +1,13 @@
 package com.JCode.Gym_Buddy.repository;
 
 import com.JCode.Gym_Buddy.entity.Admin;
-import jakarta.validation.constraints.Email;
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
+@Repository
 public interface AdminRepository extends JpaRepository<Admin, Long> {
-    boolean existsByEmail(@Email String email);
+    boolean existsByEmail(String email);      
+    boolean existsByUsername(String username);
     Optional<Admin> findByUsername(String username);
 }

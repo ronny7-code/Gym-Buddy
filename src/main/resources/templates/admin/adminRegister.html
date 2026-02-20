@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/adminBase :: Layout(~{::section})}">
+<body>
+    <section>
+        <div class="container-fluid px-4" style="padding-bottom: 70px;">
+            <div class="row mb-3">
+                <div class="mt-3 col-12 text-center">
+                    <div class="d-inline-block p-4 rounded-circle bg-gradient-primary shadow-lg mb-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)!important;">
+                        <i class="fas fa-user-shield fa-3x text-white"></i>
+                    </div>
+                    <h1 class="fw-bold text-dark mb-2">Create New Admin</h1>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-lg-8 col-md-10">
+                    <div class="card shadow-lg border-0 overflow-hidden">
+                        <div class="bg-gradient-primary py-3" style="background: linear-gradient(135deg, #4e73df 0%, #224abe 100%)!important;">
+                            <h6 class="m-0 text-white fw-bold text-center">
+                                <i class="fas fa-user-plus me-2"></i>New Admin Account
+                            </h6>
+                        </div>
+                        
+                        <div class="card-body p-3">
+                            <div th:if="${success}" class="alert alert-success alert-dismissible fade show shadow-sm border-0" role="alert">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span th:text="${success}"></span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+
+                            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show shadow-sm border-0" role="alert">
+                                <i class="fas fa-exclamation-circle text-danger me-2"></i>
+                                <span th:text="${error}"></span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+
+                            <form th:action="@{/admin/register}" th:object="${adminDto}" method="post">
+                                <div class="mb-4">
+                                    <label for="name" class="form-label fw-bold text-dark mb-2">Full Name</label>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text bg-light"><i class="fas fa-user text-muted"></i></span>
+                                        <input type="text" id="name" th:field="*{name}" class="form-control shadow-sm"
+                                               th:classappend="${#fields.hasErrors('name')} ? 'is-invalid border-danger'"
+                                               placeholder="Enter Name" required />
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="email" class="form-label fw-bold text-dark mb-2">Email Address</label>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text bg-light"><i class="fas fa-envelope text-muted"></i></span>
+                                        <input type="email" id="email" th:field="*{email}" class="form-control shadow-sm"
+                                               th:classappend="${#fields.hasErrors('email')} ? 'is-invalid border-danger'"
+                                               placeholder="Enter Email" required />
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="username" class="form-label fw-bold text-dark mb-2">Username</label>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text bg-light"><i class="fas fa-user-tag text-muted"></i></span>
+                                        <input type="text" id="username" th:field="*{username}" class="form-control shadow-sm"
+                                               th:classappend="${#fields.hasErrors('username')} ? 'is-invalid border-danger'"
+                                               placeholder="Enter Username" required />
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="password" class="form-label fw-bold text-dark mb-2">Password</label>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text bg-light"><i class="fas fa-lock text-muted"></i></span>
+                                        <input type="password" id="password" th:field="*{password}" class="form-control shadow-sm"
+                                               th:classappend="${#fields.hasErrors('password')} ? 'is-invalid border-danger'"
+                                               placeholder="Enter Password" required />
+                                        <button class="btn btn-outline-primary" type="button" id="togglePassword">
+                                            <i class="fas fa-eye" id="eyeIcon"></i>
+                                        </button>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-3">
+                                    <button type="submit" class="btn btn-primary btn-lg fw-bold shadow-lg py-3">
+                                        <i class="fas fa-user-plus me-2"></i>Register
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById('togglePassword').addEventListener('click', function () {
+                const passwordInput = document.getElementById('password');
+                const eyeIcon = document.getElementById('eyeIcon');
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+                }
+            });
+        </script>
+    </section>
+</body>
+</html>

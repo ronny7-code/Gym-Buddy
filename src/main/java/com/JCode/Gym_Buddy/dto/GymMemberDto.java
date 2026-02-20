@@ -35,8 +35,6 @@ public class GymMemberDto {
     @Size(min = 3, max = 50)
     private String username;
 
-    @NotBlank
-    @Size(min = 4)
     private String password;
 
     private String role;

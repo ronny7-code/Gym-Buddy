@@ -14,13 +14,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.JCode.Gym_Buddy.service.ContactFormService;
-
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -29,7 +25,6 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 
     private final GymMemberService gymMemberService;
-    private final ContactFormService contactFormService;
 
     @GetMapping("/profile")
     public String getMemberProfile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
@@ -64,7 +59,7 @@ public class MemberController {
         return "member/memberServices";
     }
 
-    @GetMapping("/profile/update") 
+    @GetMapping("/profile/update")
     public String showUpdateProfile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         GymMemberDto member = gymMemberService.findMemberByUsername(userDetails.getUsername());
         if (member == null) {
@@ -74,7 +69,7 @@ public class MemberController {
         return "member/memberProfileUpdate";
     }
 
-    @PostMapping("/profile/update") 
+    @PostMapping("/profile/update")
     public String saveUpdateProfile(
             @Valid @ModelAttribute("member") GymMemberDto memberDto,
             BindingResult bindingResult,

@@ -19,31 +19,22 @@ public class AdminServiceImpl implements AdminService {
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper mapper;
 
-    // Add admin
     @Override
     @Transactional
     public boolean addAdmin(AdminDto adminDto) {
-        if (adminRepository.existsByEmail(adminDto.getEmail())) {
+        if (isAdminExists(adminDto.getEmail(), adminDto.getUsername())) {
             return false;
         }
 
-        // Map DTO to Entity
         Admin admin = mapper.map(adminDto, Admin.class);
-
-        // Encode password
-        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-
-        // Set role: default to ROLE_ADMIN if not provided
+        admin.setPassword(passwordEncoder.encode(adminDto.getPassword())); 
         if (admin.getRole() == null || admin.getRole().isBlank()) {
             admin.setRole("ROLE_ADMIN");
         }
-
-        // Save to DB
         adminRepository.save(admin);
         return true;
     }
 
-    // Get all admins
     @Override
     @Transactional(readOnly = true)
     public List<AdminDto> getAllAdmins() {
@@ -53,7 +44,6 @@ public class AdminServiceImpl implements AdminService {
                 .collect(Collectors.toList());
     }
 
-    // Get single admin by their id
     @Override
     @Transactional(readOnly = true)
     public AdminDto getAdminById(Long id) {
@@ -62,14 +52,11 @@ public class AdminServiceImpl implements AdminService {
                 .orElse(null);
     }
 
-    // Update admin
     @Override
     @Transactional
     public boolean updateAdmin(Long id, AdminDto newAdmin) {
         Admin admin = adminRepository.findById(id).orElse(null);
-        if (admin == null) {
-            return false;
-        }
+        if (admin == null) return false;
 
         admin.setEmail(newAdmin.getEmail());
         admin.setName(newAdmin.getName());
@@ -83,11 +70,10 @@ public class AdminServiceImpl implements AdminService {
             admin.setRole(newAdmin.getRole());
         }
 
-        adminRepository.save(admin); 
+        adminRepository.save(admin);
         return true;
     }
 
-    // Delete admin
     @Override
     @Transactional
     public boolean deleteAdmin(Long id) {
@@ -98,15 +84,16 @@ public class AdminServiceImpl implements AdminService {
         return false;
     }
 
-    // Find admin by their username
     @Override
     @Transactional(readOnly = true)
     public AdminDto getByUsername(String username) {
-        Admin admin = adminRepository.findByUsername(username).orElse(null);
-        if(admin != null){
-        AdminDto adminDto = mapper.map(admin, AdminDto.class);
-        return adminDto;
-        }
-        return null;
+        return adminRepository.findByUsername(username)
+                .map(admin -> mapper.map(admin, AdminDto.class))
+                .orElse(null);
+    }
+
+    @Override
+    public boolean isAdminExists(String email, String username) {
+        return adminRepository.existsByEmail(email) || adminRepository.existsByUsername(username);
     }
 }
