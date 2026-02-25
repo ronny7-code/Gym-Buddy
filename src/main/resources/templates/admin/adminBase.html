@@ -68,8 +68,8 @@
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    <span th:text="${#authentication?.name ?: 'Admin'}">Admin</span>
+                    <div class="small">Logged in as: </div>
+                    <span th:text="${adminName}">Admin</span>
                 </div>
             </nav>
         </div>

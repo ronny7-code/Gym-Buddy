@@ -21,32 +21,37 @@ public class HomeController {
 
     // Home page
     @GetMapping({"/", "/home"})
-    public String getHomePage() {
+    public String getHomePage(Model model) {
+        model.addAttribute("title", "Home");
         return "home";
     }
 
     // About Us page
     @GetMapping("/aboutUs")
-    public String getAboutUsPage() {
+    public String getAboutUsPage(Model model) {
+        model.addAttribute("title", "About Us");
         return "about";
     }
 
     // Services page
     @GetMapping("/services")
-    public String getServicesPage() {
+    public String getServicesPage(Model model) {
+        model.addAttribute("title", "Services");
         return "services";
     }
 
     // Contact page
     @GetMapping("/contact")
     public String getContactPage(Model model) {
+        model.addAttribute("title", "Contact");
         model.addAttribute("contactForm", new ContactForm()); 
         return "contact";
     }
     
     // Team page
     @GetMapping("/team")
-    public String getTeamPage() {
+    public String getTeamPage(Model model) {
+        model.addAttribute("title", "Our Team");
         return "team";
     }
 

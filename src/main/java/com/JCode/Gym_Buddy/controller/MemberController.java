@@ -31,31 +31,37 @@ public class MemberController {
         GymMemberDto member = gymMemberService.findMemberByUsername(userDetails.getUsername());
 
         if (member == null) {
+            model.addAttribute("title", "Profile");
             return "redirect:/login";
         }
 
+        model.addAttribute("title", "Profile");
         model.addAttribute("member", member);
         return "member/memberProfile";
     }
 
     @GetMapping("/aboutUs")
-    public String getMemberAboutPage() {
+    public String getMemberAboutPage(Model model) {
+        model.addAttribute("title", "About Us");
         return "member/memberAbout";
     }
 
     @GetMapping("/contact")
     public String getMemberContactPage(Model model) {
+        model.addAttribute("title", "Contact");
         model.addAttribute("contactForm", new ContactForm());
         return "member/memberContact";
     }
 
     @GetMapping("/team")
-    public String getMemberTeamPage() {
+    public String getMemberTeamPage(Model model) {
+        model.addAttribute("title", "Our Team");
         return "member/memberTeam";
     }
 
     @GetMapping("/services")
-    public String getMemberServicesPage() {
+    public String getMemberServicesPage(Model model) {
+        model.addAttribute("title", "Services");
         return "member/memberServices";
     }
 
@@ -63,8 +69,10 @@ public class MemberController {
     public String showUpdateProfile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         GymMemberDto member = gymMemberService.findMemberByUsername(userDetails.getUsername());
         if (member == null) {
+            model.addAttribute("title", "Update Profile");
             return "redirect:/login";
         }
+        model.addAttribute("title", "Update Profile");
         model.addAttribute("member", member);
         return "member/memberProfileUpdate";
     }

@@ -4,6 +4,9 @@ import com.JCode.Gym_Buddy.dto.AdminDto;
 import com.JCode.Gym_Buddy.service.AdminService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,27 +22,33 @@ public class AdminController {
 
     private final AdminService adminService;
 
+    @ModelAttribute("adminName")
+    public String getAdminName(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) return null;
+        return adminService.getByUsername(userDetails.getUsername()).getName();
+    }
+
     @GetMapping({"/home", "/dashboard"})
-    public String getAdminDashboard(){
+    public String getAdminDashboard() {
         return "admin/adminHome";
     }
 
     @GetMapping("/add")
-    public String getAdminRegisterPage(Model model){
+    public String getAdminRegisterPage(Model model) {
         model.addAttribute("adminDto", new AdminDto());
         return "admin/adminRegister";
     }
 
     @PostMapping("/register")
-    public String registerAdmin(@Valid @ModelAttribute AdminDto adminDto, 
-                               BindingResult bindingResult, 
-                               Model model) {
+    public String registerAdmin(@Valid @ModelAttribute AdminDto adminDto,
+            BindingResult bindingResult,
+            Model model) {
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "admin/adminRegister";
         }
 
-        if(!adminService.addAdmin(adminDto)){
+        if (!adminService.addAdmin(adminDto)) {
             model.addAttribute("error", "Admin already registered with this email or username!");
             return "admin/adminRegister";
         }

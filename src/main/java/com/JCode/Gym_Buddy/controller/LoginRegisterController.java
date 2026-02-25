@@ -20,12 +20,14 @@ public class LoginRegisterController {
     private final GymMemberService gymMemberService;
     
     @GetMapping("/login")
-    public String showLoginPage() {
+    public String showLoginPage(Model model) {
+        model.addAttribute("title", "Login");
         return "login";
     }
 
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
+        model.addAttribute("title", "Register");
         model.addAttribute("gymMember", new GymMemberDto());
         return "register";
     }
