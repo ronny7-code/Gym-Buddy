@@ -2,8 +2,6 @@ package com.JCode.Gym_Buddy.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -39,9 +37,4 @@ public class TrainerDto {
     private String bio;
 
     private String profileImageUrl;
-
-    private boolean isAvailable;
-
-    @PastOrPresent(message = "Date joined cannot be in the future")
-    private LocalDate dateJoined;
 }

@@ -64,7 +64,6 @@ public class TrainerServiceImpl implements TrainerService {
         existing.setYearsOfExperience(toUpdate.getYearsOfExperience());
         existing.setBio(toUpdate.getBio());
         existing.setProfileImageUrl(toUpdate.getProfileImageUrl());
-        existing.setAvailable(toUpdate.isAvailable());
 
         trainerRepo.save(existing);
         return true;

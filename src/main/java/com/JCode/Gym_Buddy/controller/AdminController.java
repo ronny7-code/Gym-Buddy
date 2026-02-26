@@ -1,6 +1,7 @@
 package com.JCode.Gym_Buddy.controller;
 
 import com.JCode.Gym_Buddy.dto.AdminDto;
+import com.JCode.Gym_Buddy.dto.TrainerDto;
 import com.JCode.Gym_Buddy.service.AdminService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -57,4 +58,12 @@ public class AdminController {
         model.addAttribute("adminDto", new AdminDto());
         return "admin/adminRegister";
     }
+
+    @GetMapping("/addTrainer")
+    public String getTrainerRegisterPage(Model model){
+        model.addAttribute("trainerDto", new TrainerDto());
+        return "admin/addTrainer";
+    }
+
+    
 }

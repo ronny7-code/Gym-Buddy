@@ -46,9 +46,4 @@ public class Trainer {
     private String bio;
 
     private String profileImageUrl;
-
-    private boolean isAvailable;
-
-    @PastOrPresent(message = "Date joined cannot be in the future")
-    private LocalDate dateJoined;
 }

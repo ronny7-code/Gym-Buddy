@@ -1,0 +1,285 @@
+<!doctype html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{admin/adminBase :: Layout(~{::section})}"
+>
+  <body>
+    <section>
+      <div class="container-fluid px-4" style="padding-bottom: 70px">
+        <div class="row justify-content-center mt-4">
+          <div class="col-xl-6 col-lg-8 col-md-10">
+            <div class="card shadow-lg border-0 overflow-hidden">
+              <div
+                class="bg-gradient-primary py-3"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    #4e73df 0%,
+                    #224abe 100%
+                  ) !important;
+                "
+              >
+                <h6 class="m-0 text-white fw-bold text-center">
+                  <i class="fas fa-dumbbell me-2"></i>Add New Trainer
+                </h6>
+              </div>
+
+              <div class="card-body p-3">
+                <div
+                  th:if="${success}"
+                  class="alert alert-success alert-dismissible fade show shadow-sm border-0"
+                  role="alert"
+                >
+                  <i class="fas fa-check-circle text-success me-2"></i>
+                  <span th:text="${success}"></span>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                  ></button>
+                </div>
+
+                <div
+                  th:if="${error}"
+                  class="alert alert-danger alert-dismissible fade show shadow-sm border-0"
+                  role="alert"
+                >
+                  <i class="fas fa-exclamation-circle text-danger me-2"></i>
+                  <span th:text="${error}"></span>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                  ></button>
+                </div>
+
+                <form
+                  th:action="@{/admin/trainer/add}"
+                  th:object="${trainerDto}"
+                  method="post"
+                >
+                  <div class="mb-4">
+                    <label for="name" class="form-label fw-bold text-dark mb-2"
+                      >Full Name</label
+                    >
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-text bg-light"
+                        ><i class="fas fa-user text-muted"></i
+                      ></span>
+                      <input
+                        type="text"
+                        id="name"
+                        th:field="*{name}"
+                        class="form-control shadow-sm"
+                        th:classappend="${#fields.hasErrors('name')} ? 'is-invalid border-danger'"
+                        placeholder="Enter Full Name"
+                        required
+                      />
+                      <div
+                        class="invalid-feedback"
+                        th:if="${#fields.hasErrors('name')}"
+                        th:errors="*{name}"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="email" class="form-label fw-bold text-dark mb-2"
+                      >Email Address</label
+                    >
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-text bg-light"
+                        ><i class="fas fa-envelope text-muted"></i
+                      ></span>
+                      <input
+                        type="email"
+                        id="email"
+                        th:field="*{email}"
+                        class="form-control shadow-sm"
+                        th:classappend="${#fields.hasErrors('email')} ? 'is-invalid border-danger'"
+                        placeholder="Enter Email"
+                        required
+                      />
+                      <div
+                        class="invalid-feedback"
+                        th:if="${#fields.hasErrors('email')}"
+                        th:errors="*{email}"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label
+                      for="phoneNumber"
+                      class="form-label fw-bold text-dark mb-2"
+                      >Phone Number</label
+                    >
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-text bg-light"
+                        ><i class="fas fa-phone text-muted"></i
+                      ></span>
+                      <input
+                        type="tel"
+                        id="phoneNumber"
+                        th:field="*{phoneNumber}"
+                        class="form-control shadow-sm"
+                        th:classappend="${#fields.hasErrors('phoneNumber')} ? 'is-invalid border-danger'"
+                        placeholder="98XXXXXXXX"
+                        maxlength="10"
+                        required
+                      />
+                      <div
+                        class="invalid-feedback"
+                        th:if="${#fields.hasErrors('phoneNumber')}"
+                        th:errors="*{phoneNumber}"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="role" class="form-label fw-bold text-dark mb-2"
+                      >Role</label
+                    >
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-text bg-light"
+                        ><i class="fas fa-id-badge text-muted"></i
+                      ></span>
+                      <input
+                        type="text"
+                        id="role"
+                        th:field="*{role}"
+                        class="form-control shadow-sm"
+                        th:classappend="${#fields.hasErrors('role')} ? 'is-invalid border-danger'"
+                        placeholder="e.g. Head Trainer"
+                        required
+                      />
+                      <div
+                        class="invalid-feedback"
+                        th:if="${#fields.hasErrors('role')}"
+                        th:errors="*{role}"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label
+                      for="expertInRaw"
+                      class="form-label fw-bold text-dark mb-2"
+                      >Specializations</label
+                    >
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-text bg-light"
+                        ><i class="fas fa-star text-muted"></i
+                      ></span>
+                      <input
+                        type="text"
+                        id="expertInRaw"
+                        name="expertInRaw"
+                        class="form-control shadow-sm"
+                        th:classappend="${#fields.hasErrors('expertIn')} ? 'is-invalid border-danger'"
+                        placeholder="e.g. Weight Training, Yoga, HIIT"
+                        required
+                      />
+                      <div
+                        class="invalid-feedback"
+                        th:if="${#fields.hasErrors('expertIn')}"
+                        th:errors="*{expertIn}"
+                      ></div>
+                    </div>
+                    <small class="text-muted"
+                      >Separate multiple specializations with a comma</small
+                    >
+                  </div>
+
+                  <div class="mb-4">
+                    <label
+                      for="yearsOfExperience"
+                      class="form-label fw-bold text-dark mb-2"
+                      >Years of Experience</label
+                    >
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-text bg-light"
+                        ><i class="fas fa-calendar-alt text-muted"></i
+                      ></span>
+                      <input
+                        type="number"
+                        id="yearsOfExperience"
+                        th:field="*{yearsOfExperience}"
+                        class="form-control shadow-sm"
+                        th:classappend="${#fields.hasErrors('yearsOfExperience')} ? 'is-invalid border-danger'"
+                        placeholder="0"
+                        min="0"
+                        max="50"
+                        required
+                      />
+                      <div
+                        class="invalid-feedback"
+                        th:if="${#fields.hasErrors('yearsOfExperience')}"
+                        th:errors="*{yearsOfExperience}"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="bio" class="form-label fw-bold text-dark mb-2"
+                      >Bio</label
+                    >
+                    <div class="input-group">
+                      <span class="input-group-text bg-light"
+                        ><i class="fas fa-align-left text-muted"></i
+                      ></span>
+                      <textarea
+                        id="bio"
+                        th:field="*{bio}"
+                        class="form-control shadow-sm"
+                        th:classappend="${#fields.hasErrors('bio')} ? 'is-invalid border-danger'"
+                        placeholder="Short description about the trainer..."
+                        rows="3"
+                        maxlength="500"
+                      ></textarea>
+                      <div
+                        class="invalid-feedback"
+                        th:if="${#fields.hasErrors('bio')}"
+                        th:errors="*{bio}"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label
+                      for="profileImageUrl"
+                      class="form-label fw-bold text-dark mb-2"
+                      >Profile Image URL</label
+                    >
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-text bg-light"
+                        ><i class="fas fa-image text-muted"></i
+                      ></span>
+                      <input
+                        type="url"
+                        id="profileImageUrl"
+                        th:field="*{profileImageUrl}"
+                        class="form-control shadow-sm"
+                        placeholder="https://example.com/photo.jpg"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="d-grid gap-3">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-lg fw-bold shadow-lg py-3"
+                    >
+                      <i class="fas fa-user-plus me-2"></i>Add Trainer
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
