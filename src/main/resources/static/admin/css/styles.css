@@ -10915,6 +10915,10 @@ body {
     display: none;
   }
 }
+/* ── Dark background for admin content area ── */
+#layoutSidenav_content {
+  background-color: #f0f4f9;
+}
 .sb-nav-fixed .sb-topnav {
   z-index: 1039;
 }

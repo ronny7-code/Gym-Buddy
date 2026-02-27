@@ -1,109 +1,191 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/adminBase :: Layout(~{::section})}">
-  <body>
-    <section>
-      <div class="container-fluid px-4" style="padding-bottom: 70px;">
-        <div class="row mt-3">
-          <div class="col-xl-3 col-md-6">   
-            <div class="card bg-primary text-white mb-4 shadow"> 
-              <div class="card-body">
-                <i class="fas fa-users me-2"></i> Total Members
-                <h3 class="mt-2">120</h3>
-              </div>
-              <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" th:href="@{/admin/members}">View Members</a>
-                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-md-6">
-            <div class="card bg-success text-white mb-4 shadow">
-              <div class="card-body">
-                <i class="fas fa-user-check me-2"></i> Active Members
-                <h3 class="mt-2">98</h3>
-              </div>
-              <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" th:href="@{/admin/members}">View Details</a>
-                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-md-6">
-            <div class="card bg-warning text-white mb-4 shadow">
-              <div class="card-body">
-                <i class="fas fa-clock me-2"></i> Expiring Soon
-                <h3 class="mt-2">14</h3>
-              </div>
-              <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" th:href="@{/admin/members}">View Details</a>
-                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-md-6">
-            <div class="card bg-danger text-white mb-4 shadow">
-              <div class="card-body">
-                <i class="fas fa-dollar-sign me-2"></i> Monthly Revenue
-                <h3 class="mt-2">$3,200</h3>
-              </div>
-              <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="#">View Details</a>
-                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-              </div>
-            </div>
-          </div>
-        </div>
+<body>
+<section>
+<style>
+  #layoutSidenav_content { background: #f0f4f9 !important; }
 
-        <div class="card mb-4 shadow-sm">
-          <div class="card-header bg-light">
-            <i class="fas fa-table me-1"></i> Recent Members
-          </div>
-          <div class="card-body">
-            <table id="datatablesSimple" class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Plan</th>
-                  <th>Joined</th>
-                  <th>Expires</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>John Doe</td>
-                  <td>Monthly</td>
-                  <td>2025/01/01</td>
-                  <td>2025/02/01</td>
-                  <td><span class="badge bg-success">Active</span></td>
-                </tr>
-                <tr>
-                  <td>Jane Smith</td>
-                  <td>Quarterly</td>
-                  <td>2024/11/15</td>
-                  <td>2025/02/15</td>
-                  <td><span class="badge bg-warning text-dark">Expiring</span></td>
-                </tr>
-                <tr>
-                  <td>Ram Thapa</td>
-                  <td>Annual</td>
-                  <td>2024/06/01</td>
-                  <td>2025/06/01</td>
-                  <td><span class="badge bg-success">Active</span></td>
-                </tr>
-                <tr>
-                  <td>Sita Karki</td>
-                  <td>Monthly</td>
-                  <td>2024/12/20</td>
-                  <td>2025/01/20</td>
-                  <td><span class="badge bg-danger">Expired</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+  /* Stat cards */
+  .stat-card {
+    background: #fff;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+    padding: 1.4rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform .2s, box-shadow .2s;
+    text-decoration: none;
+  }
+  .stat-card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,.1); }
 
+  .stat-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+  }
+  .icon-blue   { background: #eff6ff; color: #3b82f6; }
+  .icon-green  { background: #f0fdf4; color: #22c55e; }
+  .icon-amber  { background: #fffbeb; color: #f59e0b; }
+  .icon-rose   { background: #fff1f2; color: #f43f5e; }
+
+  .stat-label { font-size: 0.78rem; color: #64748b; font-weight: 500; margin-bottom: 2px; }
+  .stat-value { font-size: 1.6rem; font-weight: 700; color: #1e293b; line-height: 1.1; }
+  .stat-link  { font-size: 0.75rem; color: #94a3b8; margin-top: 2px; }
+
+  /* Table card */
+  .table-card {
+    background: #fff;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+    overflow: hidden;
+  }
+  .table-card .card-header {
+    background: #fff;
+    border-bottom: 1.5px solid #f1f5f9;
+    padding: 1.1rem 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 0.95rem;
+  }
+  .table-card .table {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+  .table-card .table thead th {
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    border-bottom: 1.5px solid #f1f5f9;
+    padding: 0.75rem 1.5rem;
+  }
+  .table-card .table tbody td {
+    padding: 0.85rem 1.5rem;
+    color: #374151;
+    border-bottom: 1px solid #f8fafc;
+    vertical-align: middle;
+  }
+  .table-card .table tbody tr:last-child td { border-bottom: none; }
+  .table-card .table tbody tr:hover td { background: #fafbff; }
+
+  .badge-active   { background: #dcfce7; color: #16a34a; border-radius: 20px; padding: 3px 10px; font-size: .75rem; font-weight: 600; }
+  .badge-expiring { background: #fef9c3; color: #ca8a04; border-radius: 20px; padding: 3px 10px; font-size: .75rem; font-weight: 600; }
+  .badge-expired  { background: #fee2e2; color: #dc2626; border-radius: 20px; padding: 3px 10px; font-size: .75rem; font-weight: 600; }
+
+  .page-title { color: #1e293b; font-size: 1.3rem; }
+  .page-subtitle { color: #64748b; }
+</style>
+
+<div class="container-fluid px-4 py-4" style="padding-bottom: 80px;">
+
+  <!-- Header -->
+  <div class="mb-4">
+    <h4 class="fw-bold mb-1 page-title">
+      <i class="fas fa-chart-line me-2" style="color:#6366f1;"></i>Dashboard
+    </h4>
+    <p class="small mb-0 page-subtitle">Welcome back! Here's what's happening today.</p>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="row g-3 mb-4">
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-card">
+        <div class="stat-icon icon-blue"><i class="fas fa-users"></i></div>
+        <div>
+          <div class="stat-label">Total Members</div>
+          <div class="stat-value">120</div>
+          <a class="stat-link d-block" th:href="@{/admin/members}">View all →</a>
+        </div>
       </div>
-    </section>
-  </body>
+    </div>
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-card">
+        <div class="stat-icon icon-green"><i class="fas fa-user-check"></i></div>
+        <div>
+          <div class="stat-label">Active Members</div>
+          <div class="stat-value">98</div>
+          <a class="stat-link d-block" th:href="@{/admin/members}">View details →</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-card">
+        <div class="stat-icon icon-amber"><i class="fas fa-clock"></i></div>
+        <div>
+          <div class="stat-label">Expiring Soon</div>
+          <div class="stat-value">14</div>
+          <a class="stat-link d-block" th:href="@{/admin/members}">View details →</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-card">
+        <div class="stat-icon icon-rose"><i class="fas fa-dollar-sign"></i></div>
+        <div>
+          <div class="stat-label">Monthly Revenue</div>
+          <div class="stat-value">$3,200</div>
+          <a class="stat-link d-block" href="#">View details →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Members Table -->
+  <div class="table-card card">
+    <div class="card-header">
+      <i class="fas fa-users me-2" style="color:#6366f1;"></i>Recent Members
+    </div>
+    <div class="card-body p-0">
+      <table id="datatablesSimple" class="table mb-0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Plan</th>
+            <th>Joined</th>
+            <th>Expires</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>John Doe</strong></td>
+            <td>Monthly</td>
+            <td>2025/01/01</td>
+            <td>2025/02/01</td>
+            <td><span class="badge-active">Active</span></td>
+          </tr>
+          <tr>
+            <td><strong>Jane Smith</strong></td>
+            <td>Quarterly</td>
+            <td>2024/11/15</td>
+            <td>2025/02/15</td>
+            <td><span class="badge-expiring">Expiring</span></td>
+          </tr>
+          <tr>
+            <td><strong>Ram Thapa</strong></td>
+            <td>Annual</td>
+            <td>2024/06/01</td>
+            <td>2025/06/01</td>
+            <td><span class="badge-active">Active</span></td>
+          </tr>
+          <tr>
+            <td><strong>Sita Karki</strong></td>
+            <td>Monthly</td>
+            <td>2024/12/20</td>
+            <td>2025/01/20</td>
+            <td><span class="badge-expired">Expired</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+</section>
+</body>
 </html>
