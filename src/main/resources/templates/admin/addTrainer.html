@@ -2,100 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/adminBase :: Layout(~{::section})}">
 <body>
 <section>
-<style>
-  #layoutSidenav_content { background: #f0f4f9 !important; }
-
-  .page-title { color: #1e293b; font-size: 1.3rem; }
-  .page-subtitle { color: #64748b; }
-
-  .form-card {
-    background: #ffffff;
-    border: none;
-    border-radius: 16px;
-    box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
-  }
-
-  .section-divider {
-    border-color: #e8edf3;
-  }
-
-  .form-label {
-    color: #374151;
-    font-weight: 600;
-    font-size: 0.8rem;
-    letter-spacing: .3px;
-    margin-bottom: 6px;
-  }
-
-  .form-control {
-    background: #f8fafc;
-    border: 1.5px solid #e2e8f0;
-    border-radius: 10px;
-    color: #1e293b;
-    font-size: 0.9rem;
-    padding: 0.55rem 0.85rem;
-    transition: border-color .2s, box-shadow .2s, background .2s;
-  }
-  .form-control:focus {
-    background: #fff;
-    border-color: #6366f1;
-    box-shadow: 0 0 0 3px rgba(99,102,241,.12);
-    color: #1e293b;
-    outline: none;
-  }
-  .form-control::placeholder { color: #b0bac9; }
-  .form-control.is-invalid { border-color: #ef4444; }
-  .invalid-feedback { color: #ef4444; font-size: 0.78rem; }
-  .form-text { color: #94a3b8; font-size: 0.77rem; }
-
-  /* Avatar */
-  .avatar-wrap {
-    width: 76px; height: 76px; position: relative; flex-shrink: 0;
-  }
-  .avatar-circle {
-    width: 76px; height: 76px; border-radius: 50%;
-    background: linear-gradient(135deg, #e0e7ff 0%, #f0fdf4 100%);
-    display: flex; align-items: center; justify-content: center;
-    color: #818cf8; font-size: 26px;
-    border: 2px solid #e0e7ff;
-  }
-  .avatar-circle img {
-    width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
-    display: none; position: absolute; top: 0; left: 0;
-  }
-  .camera-btn {
-    position: absolute; bottom: 1px; right: 1px;
-    width: 24px; height: 24px; border-radius: 50%;
-    background: #6366f1; border: 2px solid #fff;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-  }
-  .camera-btn i { font-size: 9px; color: #fff; }
-
-  /* Submit button */
-  .btn-submit {
-    background: linear-gradient(135deg, #6366f1, #818cf8);
-    border: none;
-    color: #fff;
-    border-radius: 10px;
-    padding: 0.55rem 1.8rem;
-    font-weight: 600;
-    font-size: 0.9rem;
-    box-shadow: 0 2px 8px rgba(99,102,241,.3);
-    transition: opacity .2s, transform .15s;
-  }
-  .btn-submit:hover { opacity: .92; transform: translateY(-1px); color: #fff; }
-
-  /* Stat badge on header */
-  .header-badge {
-    background: #ede9fe;
-    color: #6366f1;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 4px 12px;
-  }
-</style>
 
 <div class="container-fluid px-4 py-4" style="padding-bottom: 80px;">
 
@@ -134,7 +40,7 @@
             <label for="profileImageInput" class="camera-btn">
               <i class="fas fa-camera"></i>
             </label>
-            <input type="file" id="profileImageInput" name="profileImageFile" accept="image/*" style="display:none;" onchange="previewPhoto(event)" />
+            <input type="file" id="profileImageInput" name="profileImageFile" accept=".jpg,.jpeg,.png" style="display:none;" onchange="previewPhoto(event)" />
           </div>
           <div>
             <div class="fw-semibold mb-1" style="color:#1e293b; font-size:.9rem;">Profile Photo</div>
@@ -186,10 +92,8 @@
           <div class="col-md-8">
             <label class="form-label">Specializations</label>
             <input type="text" id="expertInRaw" name="expertInRaw" class="form-control"
-                   th:classappend="${#fields.hasErrors('expertIn')} ? 'is-invalid'"
                    placeholder="e.g. Weight Training, Yoga, HIIT" required />
             <div class="form-text mt-1">Separate multiple with commas.</div>
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('expertIn')}" th:errors="*{expertIn}"></div>
           </div>
           <div class="col-md-4">
             <label class="form-label">Years of Experience</label>

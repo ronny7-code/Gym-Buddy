@@ -1,12 +1,7 @@
 package com.JCode.Gym_Buddy.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
 @Getter
 @Setter
@@ -14,19 +9,19 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AdminDto {
 
-    @NotBlank
-    @Size(min = 3, max = 100)
+    @NotBlank(message = "Name is required")
+    @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters")
     private String name;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Username is required")
     private String username;
 
-    @NotBlank
-    @Size(min = 4, max = 100)
+    @NotBlank(message = "Password is required")
+    @Size(min = 4, max = 100, message = "Password must be at least 4 characters")
     private String password;
 
     private String role;

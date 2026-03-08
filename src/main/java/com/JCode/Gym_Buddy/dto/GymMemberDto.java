@@ -1,40 +1,41 @@
 package com.JCode.Gym_Buddy.dto;
 
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class GymMemberDto {
 
-    private Long id;  
+    private Long id;
 
-    @NotBlank
-    @Size(min = 2, max = 100)
+    @NotBlank(message = "Name is required")
+    @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
     private String name;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
     private String email;
 
-    @NotBlank
-    @Pattern(regexp = "^[0-9]{10}$")
+    @NotBlank(message = "Phone number is required")
+    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be 10 digits")
     private String phoneNumber;
 
-    @Min(16)
-    @Max(100)
+    @Min(value = 16, message = "Minimum age is 16")
+    @Max(value = 100, message = "Maximum age is 100")
     private int age;
 
-    @NotBlank
+    @NotBlank(message = "Membership type is required")
     private String membershipType;
 
-    @NotBlank
-    @Size(min = 3, max = 50)
+    @NotBlank(message = "Username is required")
+    @Size(min = 3, max = 50, message = "Username must be 3-50 characters")
     private String username;
 
+    @NotBlank(message = "Password is required")
+    @Size(min = 4, message = "Password must be at least 4 characters")
     private String password;
 
     private String role;

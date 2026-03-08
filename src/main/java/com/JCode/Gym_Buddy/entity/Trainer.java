@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-import java.time.LocalDate;
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
@@ -35,8 +32,7 @@ public class Trainer {
     private String role;
 
     @NotEmpty(message = "At least one specialization is required")
-    @ElementCollection
-    private List<String> expertIn;
+    private String expertIn;
 
     @Min(value = 0, message = "Years of experience cannot be negative")
     @Max(value = 50, message = "Years of experience seems unrealistic above 50")
@@ -45,5 +41,6 @@ public class Trainer {
     @Size(max = 500, message = "Bio must not exceed 500 characters")
     private String bio;
 
-    private String profileImageUrl;
+    private String profileImageName;
+    private boolean isAvailable;
 }

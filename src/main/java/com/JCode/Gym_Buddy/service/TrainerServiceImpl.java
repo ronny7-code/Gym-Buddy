@@ -45,6 +45,7 @@ public class TrainerServiceImpl implements TrainerService {
             trainerRepo.save(trainer);
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -63,7 +64,7 @@ public class TrainerServiceImpl implements TrainerService {
         existing.setExpertIn(toUpdate.getExpertIn());
         existing.setYearsOfExperience(toUpdate.getYearsOfExperience());
         existing.setBio(toUpdate.getBio());
-        existing.setProfileImageUrl(toUpdate.getProfileImageUrl());
+        existing.setProfileImageName(toUpdate.getProfileImageName());
 
         trainerRepo.save(existing);
         return true;

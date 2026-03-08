@@ -2,7 +2,6 @@ package com.JCode.Gym_Buddy.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
-import java.util.List;
 
 @Getter
 @Setter
@@ -26,15 +25,16 @@ public class TrainerDto {
     @Size(max = 50, message = "Role must not exceed 50 characters")
     private String role;
 
-    @NotEmpty(message = "At least one specialization is required")
-    private List<String> expertIn;
+    private String expertIn;
 
     @Min(value = 0, message = "Years of experience cannot be negative")
     @Max(value = 50, message = "Years of experience seems unrealistic above 50")
     private int yearsOfExperience;
 
+    @NotBlank(message = "Bio is required")
     @Size(max = 500, message = "Bio must not exceed 500 characters")
     private String bio;
 
-    private String profileImageUrl;
+    private String profileImageName;
+    private boolean isAvailable;
 }
