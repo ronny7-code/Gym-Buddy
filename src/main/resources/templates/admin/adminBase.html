@@ -9,16 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link th:href="@{/admin/css/styles.css}" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    
-    <style>
-        #layoutSidenav_content {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            flex-grow: 1;
-            min-width: 0;
-        }
-    </style>
 </head>
 <body class="sb-nav-fixed">
 
@@ -43,27 +33,43 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Main</div>
+                        <div class="sb-sidenav-menu-heading">MAIN</div>
                         <a class="nav-link" th:href="@{/admin/dashboard}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-globe"></i></div>
                             Dashboard
                         </a>
-                        <div class="sb-sidenav-menu-heading">Gym Management</div>
+
+                        <div class="sb-sidenav-menu-heading">GYM MANAGEMENT</div>
                         <a class="nav-link" th:href="@{/admin/members}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div> Members
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div> 
+                            Members
                         </a>
                         <a class="nav-link" th:href="@{/admin/memberships}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-id-card"></i></div> Memberships
+                            <div class="sb-nav-link-icon"><i class="fas fa-id-card"></i></div> 
+                            Memberships
                         </a>
-                        <a class="nav-link" th:href="@{/admin/trainer/add}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-person-running"></i></div> Trainers
+
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTrainers" aria-expanded="false" aria-controls="collapseTrainers">
+                            <div class="sb-nav-link-icon"><i class="fas fa-person-running"></i></div>
+                            Trainers
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
+                        <div class="collapse" id="collapseTrainers" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" th:href="@{/admin/trainer}">View All Trainers</a>
+                                <a class="nav-link" th:href="@{/admin/trainer/add}">Add New Trainer</a>
+                            </nav>
+                        </div>
+
                         <a class="nav-link" th:href="@{/admin/payments}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div> Payments
+                            <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div> 
+                            Payments
                         </a>
-                        <div class="sb-sidenav-menu-heading">Account</div>
+                        
+                        <div class="sb-sidenav-menu-heading">ACCOUNT</div>
                         <a class="nav-link" th:href="@{/admin/add}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div> Add New Admin
+                            <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div> 
+                            Add New Admin
                         </a>
                     </div>
                 </div>
@@ -79,15 +85,9 @@
                 <div th:replace="${content}"></div>
             </main>
 
-            <footer class="py-4 mt-auto" style="background:#1a1d27; border-top: 1px solid #2e3349;">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div style="color:#8890aa;">Copyright &copy; Gym Buddy 2025</div>
-                        <div style="color:#8890aa;">
-                            <a href="#" style="color:#8890aa;">Privacy Policy</a> &middot;
-                            <a href="#" style="color:#8890aa;">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
+            <footer class="py-4 mt-auto">
+                <div class="container-fluid px-4 text-center">
+                    <div class="text-muted small">Copyright &copy; Gym Buddy 2025</div>
                 </div>
             </footer>
         </div>
@@ -95,7 +95,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script th:src="@{/admin/js/scripts.js}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-    <script th:src="@{/admin/js/datatables-simple-demo.js}"></script>
 </body>
 </html>

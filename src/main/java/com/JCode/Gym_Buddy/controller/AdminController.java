@@ -40,7 +40,7 @@ public class AdminController {
         return adminService.getByUsername(userDetails.getUsername()).getName();
     }
 
-    @GetMapping({"/home", "/dashboard"})
+    @GetMapping({"/home", "/dashboard", "/"})
     public String getAdminDashboard() {
         return "admin/adminHome";
     }
@@ -113,5 +113,11 @@ public class AdminController {
         model.addAttribute("success", "Trainer added successfully!");
         model.addAttribute("trainerDto", new TrainerDto());
         return "admin/addTrainer";
+    }
+
+    @GetMapping("/trainer")
+    public String getTrainersPage(Model model){
+        model.addAttribute("trainers", trainerService.getAllTrainers());
+        return "admin/trainers";
     }
 }   

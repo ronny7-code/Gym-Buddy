@@ -972,8 +972,8 @@ ol {
 }
 
 .team-title .section-title {
-	text-align: left;
-	float: left;
+	text-align: center;
+	float: none;
 }
 
 .primary-btn.appoinment-btn {
@@ -1025,9 +1025,9 @@ ol {
 	text-align: center;
 	background: #0a0a0a;
 	border-top: 4px solid #464646;
-	-webkit-transform: skewY(-5deg);
-	-ms-transform: skewY(-5deg);
-	transform: skewY(-5deg);
+	-webkit-transform: skewY(0deg);
+	-ms-transform: skewY(0deg);
+	transform: skewY(0deg);
 	position: absolute;
 	left: 0;
 	bottom: -250px;
@@ -1041,9 +1041,9 @@ ol {
 	color: #ffffff;
 	font-weight: 600;
 	margin-bottom: 14px;
-	-webkit-transform: skewY(5deg);
-	-ms-transform: skewY(5deg);
-	transform: skewY(5deg);
+	-webkit-transform: skewY(0deg);
+	-ms-transform: skewY(0deg);
+	transform: skewY(0deg);
 }
 
 .ts-item .ts_text span {
@@ -1052,9 +1052,31 @@ ol {
 	font-weight: 700;
 	color: #aaaaaa;
 	text-transform: uppercase;
-	-webkit-transform: skewY(5deg);
-	-ms-transform: skewY(5deg);
-	transform: skewY(5deg);
+	-webkit-transform: skewY(0deg);
+	-ms-transform: skewY(0deg);
+	transform: skewY(0deg);
+}
+
+.trainer-details {
+	color: #e0e0e0;
+	font-size: 14px;
+	line-height: 1.6;
+	margin-top: 10px;
+	padding: 0 20px;
+}
+
+.trainer-details div {
+	margin-bottom: 4px;
+}
+
+.available {
+	color: #4CAF50;
+	font-weight: bold;
+}
+
+.not-available {
+	color: #ff4d4d;
+	font-weight: bold;
 }
 
 /*---------------------
@@ -4199,4 +4221,59 @@ ol {
     .profile-card,
     .membership-card,
     .profile-section-block { padding: 20px 16px; }
+}
+/* Trainer Management Specific Styles */
+.trainer-profile-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.trainer-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    object-fit: cover;
+    background-color: #f1f5f9;
+    border: 1px solid #e2e8f0;
+}
+
+.specialty-badge {
+    background-color: #eef2ff;
+    color: #6366f1;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.exp-text {
+    font-size: 0.8rem;
+    color: #64748b;
+    display: block;
+}
+
+/* Status Badges */
+.status-available {
+    background-color: #dcfce7;
+    color: #15803d;
+    padding: 0.35rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.status-busy {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    padding: 0.35rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.action-btns .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+    border-radius: 6px;
 }

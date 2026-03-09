@@ -9,6 +9,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.JCode.Gym_Buddy.entity.ContactForm;
 import com.JCode.Gym_Buddy.service.ContactFormService;
+import com.JCode.Gym_Buddy.service.TrainerService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class HomeController {
     
     private final ContactFormService contactFormService;
+    private final TrainerService trainerService;
 
     // Home page
     @GetMapping({"/", "/home"})
@@ -52,6 +54,7 @@ public class HomeController {
     @GetMapping("/team")
     public String getTeamPage(Model model) {
         model.addAttribute("title", "Our Team");
+        model.addAttribute("trainers", trainerService.getAllTrainers());
         return "team";
     }
 
