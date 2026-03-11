@@ -45,5 +45,6 @@ public class GymMember {
     @Size(min = 4, message = "Password must be at least 4 characters")  
     private String password;
 
+    @Transient
     private String role;
 }

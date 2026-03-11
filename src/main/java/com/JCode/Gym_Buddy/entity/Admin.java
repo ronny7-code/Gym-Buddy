@@ -27,5 +27,7 @@ public class Admin {
 
     @Column(nullable = false)
     private String password;
+
+    @Transient
     private String role;
 }

@@ -3,6 +3,7 @@ package com.JCode.Gym_Buddy.controller;
 import com.JCode.Gym_Buddy.dto.AdminDto;
 import com.JCode.Gym_Buddy.dto.TrainerDto;
 import com.JCode.Gym_Buddy.service.AdminService;
+import com.JCode.Gym_Buddy.service.GymMemberService;
 import com.JCode.Gym_Buddy.service.TrainerService;
 
 import jakarta.validation.Valid;
@@ -21,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,14 +35,16 @@ public class AdminController {
 
     private final AdminService adminService;
     private final TrainerService trainerService;
+    private final GymMemberService gymMemberService;
 
     @ModelAttribute("adminName")
     public String getAdminName(@AuthenticationPrincipal UserDetails userDetails) {
-        if (userDetails == null) return null;
+        if (userDetails == null)
+            return null;
         return adminService.getByUsername(userDetails.getUsername()).getName();
     }
 
-    @GetMapping({"/home", "/dashboard", "/"})
+    @GetMapping({ "/home", "/dashboard", "/" })
     public String getAdminDashboard() {
         return "admin/adminHome";
     }
@@ -53,8 +57,8 @@ public class AdminController {
 
     @PostMapping("/register")
     public String registerAdmin(@Valid @ModelAttribute AdminDto adminDto,
-                                BindingResult bindingResult,
-                                Model model) {
+            BindingResult bindingResult,
+            Model model) {
         if (bindingResult.hasErrors()) {
             return "admin/adminRegister";
         }
@@ -75,10 +79,10 @@ public class AdminController {
 
     @PostMapping("/trainer/add")
     public String addNewTrainer(@Valid @ModelAttribute TrainerDto trainerDto,
-                                BindingResult bindingResult,
-                                Model model,
-                                @RequestParam MultipartFile profileImageFile,
-                                @RequestParam String expertInRaw) throws IOException {
+            BindingResult bindingResult,
+            Model model,
+            @RequestParam MultipartFile profileImageFile,
+            @RequestParam String expertInRaw) throws IOException {
 
         trainerDto.setExpertIn(expertInRaw.trim());
         trainerDto.setAvailable(true);
@@ -115,9 +119,22 @@ public class AdminController {
         return "admin/addTrainer";
     }
 
-    @GetMapping("/trainer")
-    public String getTrainersPage(Model model){
+    @GetMapping("/trainers")
+    public String getTrainersPage(Model model) {
         model.addAttribute("trainers", trainerService.getAllTrainers());
         return "admin/trainers";
     }
-}   
+
+    @GetMapping("/members")
+    public String getMemberPage(Model model) {
+        model.addAttribute("members", gymMemberService.getAllMembers());
+        return "admin/members";
+    }
+
+    @GetMapping("/member/update/{id}")
+    public String editMember(@PathVariable Long id, Model model) {
+        model.addAttribute("member", gymMemberService.getMemberById(id));
+        return "admin/updateMember";
+    }
+
+}

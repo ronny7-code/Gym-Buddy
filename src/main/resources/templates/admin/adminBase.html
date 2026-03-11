@@ -44,10 +44,6 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div> 
                             Members
                         </a>
-                        <a class="nav-link" th:href="@{/admin/memberships}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-id-card"></i></div> 
-                            Memberships
-                        </a>
 
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTrainers" aria-expanded="false" aria-controls="collapseTrainers">
                             <div class="sb-nav-link-icon"><i class="fas fa-person-running"></i></div>
@@ -56,15 +52,10 @@
                         </a>
                         <div class="collapse" id="collapseTrainers" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" th:href="@{/admin/trainer}">View All Trainers</a>
+                                <a class="nav-link" th:href="@{/admin/trainers}">View All Trainers</a>
                                 <a class="nav-link" th:href="@{/admin/trainer/add}">Add New Trainer</a>
                             </nav>
                         </div>
-
-                        <a class="nav-link" th:href="@{/admin/payments}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div> 
-                            Payments
-                        </a>
                         
                         <div class="sb-sidenav-menu-heading">ACCOUNT</div>
                         <a class="nav-link" th:href="@{/admin/add}">
