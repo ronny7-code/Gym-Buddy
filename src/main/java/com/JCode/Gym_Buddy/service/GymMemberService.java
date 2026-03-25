@@ -12,4 +12,5 @@ public interface GymMemberService {
     boolean updateMember(Long memberId, GymMemberDto updatedMember);
     boolean deleteMember(Long memberId);
     GymMemberDto findMemberByUsername(String username);
+    int totalMember();
 }

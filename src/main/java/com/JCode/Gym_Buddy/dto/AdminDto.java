@@ -10,12 +10,15 @@ import lombok.*;
 public class AdminDto {
 
     @NotBlank(message = "Name is required")
-    @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters")
+    @Size(min = 4, max = 100, message = "Name must be between 3 and 100 characters")
     private String name;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
     private String email;
+
+    @NotBlank(message = "Location is required")
+    private String location;
 
     @NotBlank(message = "Username is required")
     private String username;

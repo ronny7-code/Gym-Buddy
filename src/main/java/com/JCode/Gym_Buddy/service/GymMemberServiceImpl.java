@@ -93,4 +93,9 @@ public GymMemberDto findMemberByUsername(String username) {
             .map(member -> modelMapper.map(member, GymMemberDto.class))
             .orElse(null);
 }
+
+@Override
+public int totalMember() {
+    return (int) gymMemberRepo.count();
+}
 }
