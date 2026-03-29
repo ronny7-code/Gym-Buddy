@@ -45,7 +45,9 @@ public class AdminController {
     }
 
     @GetMapping({ "/home", "/dashboard", "/" })
-    public String getAdminDashboard() {
+    public String getAdminDashboard(Model model) {
+        model.addAttribute("totalMembers", gymMemberService.totalMember());
+        model.addAttribute("totalTrainers", trainerService.getTotalTrainers());
         return "admin/adminHome";
     }
 

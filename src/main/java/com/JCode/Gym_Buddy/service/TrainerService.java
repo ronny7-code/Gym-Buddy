@@ -11,5 +11,6 @@ public interface TrainerService {
     TrainerDto getTrainerById(Long id);
     boolean updateTrainer(Long id, TrainerDto toUpdate);
     boolean deleteTrainer(Long id);
+    int getTotalTrainers();
 
 }

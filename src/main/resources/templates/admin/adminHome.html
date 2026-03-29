@@ -20,7 +20,7 @@
         <div class="stat-icon icon-blue"><i class="fas fa-users"></i></div>
         <div>
           <div class="stat-label">Total Members</div>
-          <div class="stat-value">120</div>
+          <div class="stat-value" th:text="${totalMembers}"></div>
           <a class="stat-link d-block" th:href="@{/admin/members}">View all →</a>
         </div>
       </div>
@@ -29,9 +29,9 @@
       <div class="stat-card">
         <div class="stat-icon icon-green"><i class="fas fa-user-check"></i></div>
         <div>
-          <div class="stat-label">Active Members</div>
-          <div class="stat-value">98</div>
-          <a class="stat-link d-block" th:href="@{/admin/members}">View details →</a>
+          <div class="stat-label">Total Trainers</div>
+          <div class="stat-value" th:text="${totalTrainers}"></div>
+          <a class="stat-link d-block" th:href="@{/admin/trainers}">View details →</a>
         </div>
       </div>
     </div>

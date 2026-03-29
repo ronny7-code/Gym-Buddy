@@ -95,6 +95,7 @@ public GymMemberDto findMemberByUsername(String username) {
 }
 
 @Override
+@Transactional(readOnly = true)
 public int totalMember() {
     return (int) gymMemberRepo.count();
 }

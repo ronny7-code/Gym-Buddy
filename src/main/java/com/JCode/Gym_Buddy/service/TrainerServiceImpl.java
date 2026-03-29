@@ -79,4 +79,10 @@ public class TrainerServiceImpl implements TrainerService {
         trainerRepo.deleteById(id);
         return true;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public int getTotalTrainers() {
+        return (int) trainerRepo.count();
+    }
 }
