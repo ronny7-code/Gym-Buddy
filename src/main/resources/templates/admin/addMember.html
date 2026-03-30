@@ -1,0 +1,211 @@
+<!doctype html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{admin/adminBase :: Layout(~{::section})}"
+>
+  <body>
+    <section>
+      <div class="container-fluid px-4 py-4" style="padding-bottom: 80px">
+        <!-- Page header -->
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <div>
+            <h4 class="fw-bold mb-1 page-title">
+              <i class="fas fa-user-plus me-2" style="color: #6366f1"></i>Add
+              New Member
+            </h4>
+            <p class="small mb-0 page-subtitle">
+              Register a new member to your gym.
+            </p>
+          </div>
+          <span class="header-badge"
+            ><i class="fas fa-id-card me-1"></i>Member</span
+          >
+        </div>
+
+        <!-- Alerts -->
+        <div
+          th:if="${success}"
+          class="alert alert-success alert-dismissible fade show rounded-3 border-0 shadow-sm"
+          role="alert"
+        >
+          <i class="fas fa-check-circle me-2"></i
+          ><span th:text="${success}"></span>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+          ></button>
+        </div>
+        <div
+          th:if="${error}"
+          class="alert alert-danger alert-dismissible fade show rounded-3 border-0 shadow-sm"
+          role="alert"
+        >
+          <i class="fas fa-exclamation-circle me-2"></i
+          ><span th:text="${error}"></span>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+          ></button>
+        </div>
+
+        <form
+          th:action="@{/admin/member/add}"
+          th:object="${gymMemberDto}"
+          method="post"
+        >
+          <div class="form-card card">
+            <div class="card-body p-4 p-md-5">
+              <!-- Row 1 -->
+              <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Full Name</label>
+                  <input
+                    type="text"
+                    th:field="*{name}"
+                    class="form-control"
+                    th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'"
+                    placeholder="Enter Full Name"
+                    required
+                  />
+                  <div
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('name')}"
+                    th:errors="*{name}"
+                  ></div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Email Address</label>
+                  <input
+                    type="email"
+                    th:field="*{email}"
+                    class="form-control"
+                    th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"
+                    placeholder="Enter Email"
+                    required
+                  />
+                  <div
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('email')}"
+                    th:errors="*{email}"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Row 2 -->
+              <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Phone Number</label>
+                  <input
+                    type="tel"
+                    th:field="*{phoneNumber}"
+                    class="form-control"
+                    th:classappend="${#fields.hasErrors('phoneNumber')} ? 'is-invalid'"
+                    placeholder="Enter Phone Number"
+                    maxlength="10"
+                    required
+                  />
+                  <div
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('phoneNumber')}"
+                    th:errors="*{phoneNumber}"
+                  ></div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Age</label>
+                  <input
+                    type="number"
+                    th:field="*{age}"
+                    class="form-control"
+                    th:classappend="${#fields.hasErrors('age')} ? 'is-invalid'"
+                    placeholder="Enter Age"
+                    min="16"
+                    max="100"
+                    required
+                  />
+                  <div
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('age')}"
+                    th:errors="*{age}"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Row 3 -->
+              <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Username</label>
+                  <input
+                    type="text"
+                    th:field="*{username}"
+                    class="form-control"
+                    th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'"
+                    placeholder="Enter Username"
+                    required
+                  />
+                  <div
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('username')}"
+                    th:errors="*{username}"
+                  ></div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Password</label>
+                  <input
+                    type="password"
+                    th:field="*{password}"
+                    class="form-control"
+                    th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'"
+                    placeholder="Enter Password"
+                    required
+                  />
+                  <div
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('password')}"
+                    th:errors="*{password}"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Row 4 -->
+              <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                  <label class="form-label">Membership Type</label>
+                  <select
+                    th:field="*{membershipType}"
+                    class="form-select"
+                    th:classappend="${#fields.hasErrors('membershipType')} ? 'is-invalid'"
+                    required
+                  >
+                    <option value="" selected>
+                      Select Membership Type
+                    </option>
+                    <option value="3 Months">3 Months</option>
+                    <option value="6 Months">6 Months</option>
+                    <option value="12 Months">12 Months</option>
+                  </select>
+                  <div
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('membershipType')}"
+                    th:errors="*{membershipType}"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Submit -->
+              <div
+                class="d-flex justify-content-end pt-2 border-top section-divider"
+              >
+                <button type="submit" class="btn btn-submit">
+                  <i class="fas fa-user-plus me-2"></i>Add Member
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

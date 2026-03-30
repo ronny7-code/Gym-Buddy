@@ -1,6 +1,7 @@
 package com.JCode.Gym_Buddy.controller;
 
 import com.JCode.Gym_Buddy.dto.AdminDto;
+import com.JCode.Gym_Buddy.dto.GymMemberDto;
 import com.JCode.Gym_Buddy.dto.TrainerDto;
 import com.JCode.Gym_Buddy.service.AdminService;
 import com.JCode.Gym_Buddy.service.GymMemberService;
@@ -137,6 +138,31 @@ public class AdminController {
     public String editMember(@PathVariable Long id, Model model) {
         model.addAttribute("member", gymMemberService.getMemberById(id));
         return "admin/updateMember";
+    }
+
+    @GetMapping("/member/add")
+    public String getAddMemberPage(Model model) {
+        model.addAttribute("gymMemberDto", new GymMemberDto());
+        return "admin/addMember";
+    }
+
+    @PostMapping("/member/add")
+    public String addNewMember(@Valid @ModelAttribute GymMemberDto gymMemberDto,
+            BindingResult bindingResult,
+            Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "admin/addMember";
+        }
+
+        if (!gymMemberService.addMember(gymMemberDto)) {
+            model.addAttribute("error", "Member already exists with this email, phone, or username!");
+            return "admin/addMember";
+        }
+
+        model.addAttribute("success", "Member added successfully!");
+        model.addAttribute("gymMemberDto", new GymMemberDto());
+        return "admin/addMember";
     }
 
 }

@@ -1,156 +1,191 @@
 <!doctype html>
 <html lang="en" th:replace="~{base :: Layout(~{::section})}">
-<body>
-<section>
+  <body>
+    <section>
+      <!-- Registration Section Begin -->
+      <section class="register-section">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+              <div class="register-wrapper">
+                <div class="register-title text-center">
+                  <span class="register-eyebrow">JOIN US</span>
+                  <h2 class="register-heading">CREATE ACCOUNT</h2>
+                </div>
 
-  <!-- Registration Section Begin -->
-  <section class="register-section">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8">
-          <div class="register-wrapper">
+                <div class="register-card">
+                  <!-- SUCCESS MESSAGE (flash from redirect — put this in login.html too) -->
+                  <div th:if="${success}" class="alert-msg alert-msg--success">
+                    <i class="fa fa-check-circle"></i>
+                    <span th:text="${success}"></span>
+                  </div>
 
-            <div class="register-title text-center">
-              <span class="register-eyebrow">JOIN US</span>
-              <h2 class="register-heading">CREATE ACCOUNT</h2>
-            </div>
+                  <!-- ERROR MESSAGE -->
+                  <div th:if="${error}" class="alert-msg alert-msg--error">
+                    <i class="fa fa-exclamation-circle"></i>
+                    <span th:text="${error}"></span>
+                  </div>
 
-            <div class="register-card">
+                  <form
+                    th:action="@{/register}"
+                    method="post"
+                    th:object="${gymMember}"
+                  >
+                    <!-- Full Name -->
+                    <div class="field-group">
+                      <label class="field-label">
+                        <i class="fa fa-user field-icon"></i> Full Name
+                      </label>
+                      <input
+                        type="text"
+                        th:field="*{name}"
+                        class="field-input"
+                        placeholder="Enter your full name"
+                      />
+                      <small
+                        class="field-error"
+                        th:if="${#fields.hasErrors('name')}"
+                        th:errors="*{name}"
+                      ></small>
+                    </div>
 
-              <!-- SUCCESS MESSAGE (flash from redirect — put this in login.html too) -->
-              <div th:if="${success}" class="alert-msg alert-msg--success">
-                <i class="fa fa-check-circle"></i>
-                <span th:text="${success}"></span>
+                    <!-- Email -->
+                    <div class="field-group">
+                      <label class="field-label">
+                        <i class="fa fa-envelope field-icon"></i> Email
+                      </label>
+                      <input
+                        type="email"
+                        th:field="*{email}"
+                        class="field-input"
+                        placeholder="Enter your email"
+                      />
+                      <small
+                        class="field-error"
+                        th:if="${#fields.hasErrors('email')}"
+                        th:errors="*{email}"
+                      ></small>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="field-group">
+                      <label class="field-label">
+                        <i class="fa fa-phone field-icon"></i> Phone Number
+                      </label>
+                      <input
+                        type="text"
+                        th:field="*{phoneNumber}"
+                        class="field-input"
+                        placeholder="Enter your phone number"
+                      />
+                      <small
+                        class="field-error"
+                        th:if="${#fields.hasErrors('phoneNumber')}"
+                        th:errors="*{phoneNumber}"
+                      ></small>
+                    </div>
+
+                    <!-- Age -->
+                    <div class="field-group">
+                      <label class="field-label">
+                        <i class="fa fa-calendar field-icon"></i> Age
+                      </label>
+                      <input
+                        type="number"
+                        th:field="*{age}"
+                        class="field-input"
+                        placeholder="Enter your age"
+                      />
+                      <small
+                        class="field-error"
+                        th:if="${#fields.hasErrors('age')}"
+                        th:errors="*{age}"
+                      ></small>
+                    </div>
+
+                    <!-- Membership Type -->
+                    <div class="field-group">
+                      <label class="field-label">
+                        <i class="fa fa-id-card field-icon"></i> Membership Type
+                      </label>
+                      <select
+                        th:field="*{membershipType}"
+                        class="field-input field-select"
+                      >
+                        <option value="" selected>
+                          Select Membership Type
+                        </option>
+                        <option value="3 Months">3 Months</option>
+                        <option value="6 Months">6 Months</option>
+                        <option value="12 Months">12 Months</option>
+                      </select>
+                      <small
+                        class="field-error"
+                        th:if="${#fields.hasErrors('membershipType')}"
+                        th:errors="*{membershipType}"
+                      ></small>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="field-group">
+                      <label class="field-label">
+                        <i class="fa fa-user-circle field-icon"></i> Username
+                      </label>
+                      <input
+                        type="text"
+                        th:field="*{username}"
+                        class="field-input"
+                        placeholder="Choose a username"
+                      />
+                      <small
+                        class="field-error"
+                        th:if="${#fields.hasErrors('username')}"
+                        th:errors="*{username}"
+                      ></small>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="field-group">
+                      <label class="field-label">
+                        <i class="fa fa-lock field-icon"></i> Password
+                      </label>
+                      <input
+                        type="password"
+                        th:field="*{password}"
+                        class="field-input"
+                        placeholder="Create a password"
+                      />
+                      <small
+                        class="field-error"
+                        th:if="${#fields.hasErrors('password')}"
+                        th:errors="*{password}"
+                      ></small>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="field-group">
+                      <button type="submit" class="register-btn">
+                        <i class="fa fa-user-plus"></i> REGISTER NOW
+                      </button>
+                    </div>
+
+                    <!-- Login Link -->
+                    <div class="register-footer">
+                      <p>
+                        Already have an account?
+                        <a th:href="@{/login}" class="register-link">
+                          Login here <i class="fa fa-arrow-right"></i>
+                        </a>
+                      </p>
+                    </div>
+                  </form>
+                </div>
               </div>
-
-              <!-- ERROR MESSAGE -->
-              <div th:if="${error}" class="alert-msg alert-msg--error">
-                <i class="fa fa-exclamation-circle"></i>
-                <span th:text="${error}"></span>
-              </div>
-
-              <form th:action="@{/register}" method="post" th:object="${gymMember}">
-
-                <!-- Full Name -->
-                <div class="field-group">
-                  <label class="field-label">
-                    <i class="fa fa-user field-icon"></i> Full Name
-                  </label>
-                  <input type="text" th:field="*{name}"
-                    class="field-input"
-                    placeholder="Enter your full name">
-                  <small class="field-error"
-                         th:if="${#fields.hasErrors('name')}"
-                         th:errors="*{name}"></small>
-                </div>
-
-                <!-- Email -->
-                <div class="field-group">
-                  <label class="field-label">
-                    <i class="fa fa-envelope field-icon"></i> Email
-                  </label>
-                  <input type="email" th:field="*{email}"
-                    class="field-input"
-                    placeholder="Enter your email">
-                  <small class="field-error"
-                         th:if="${#fields.hasErrors('email')}"
-                         th:errors="*{email}"></small>
-                </div>
-
-                <!-- Phone -->
-                <div class="field-group">
-                  <label class="field-label">
-                    <i class="fa fa-phone field-icon"></i> Phone Number
-                  </label>
-                  <input type="text" th:field="*{phoneNumber}"
-                    class="field-input"
-                    placeholder="Enter your phone number">
-                  <small class="field-error"
-                         th:if="${#fields.hasErrors('phoneNumber')}"
-                         th:errors="*{phoneNumber}"></small>
-                </div>
-
-                <!-- Age -->
-                <div class="field-group">
-                  <label class="field-label">
-                    <i class="fa fa-calendar field-icon"></i> Age
-                  </label>
-                  <input type="number" th:field="*{age}"
-                    class="field-input"
-                    placeholder="Enter your age">
-                  <small class="field-error"
-                         th:if="${#fields.hasErrors('age')}"
-                         th:errors="*{age}"></small>
-                </div>
-
-                <!-- Membership Type -->
-                <div class="field-group">
-                  <label class="field-label">
-                    <i class="fa fa-id-card field-icon"></i> Membership Type
-                  </label>
-                  <select th:field="*{membershipType}" class="field-input field-select">
-                    <option value="">Select Membership</option>
-                    <option value="Basic">Basic</option>
-                    <option value="Premium">Premium</option>
-                    <option value="VIP">VIP</option>
-                  </select>
-                  <small class="field-error"
-                         th:if="${#fields.hasErrors('membershipType')}"
-                         th:errors="*{membershipType}"></small>
-                </div>
-
-                <!-- Username -->
-                <div class="field-group">
-                  <label class="field-label">
-                    <i class="fa fa-user-circle field-icon"></i> Username
-                  </label>
-                  <input type="text" th:field="*{username}"
-                    class="field-input"
-                    placeholder="Choose a username">
-                  <small class="field-error"
-                         th:if="${#fields.hasErrors('username')}"
-                         th:errors="*{username}"></small>
-                </div>
-
-                <!-- Password -->
-                <div class="field-group">
-                  <label class="field-label">
-                    <i class="fa fa-lock field-icon"></i> Password
-                  </label>
-                  <input type="password" th:field="*{password}"
-                    class="field-input"
-                    placeholder="Create a password">
-                  <small class="field-error"
-                         th:if="${#fields.hasErrors('password')}"
-                         th:errors="*{password}"></small>
-                </div>
-
-                <!-- Submit -->
-                <div class="field-group">
-                  <button type="submit" class="register-btn">
-                    <i class="fa fa-user-plus"></i> REGISTER NOW
-                  </button>
-                </div>
-
-                <!-- Login Link -->
-                <div class="register-footer">
-                  <p>Already have an account?
-                    <a th:href="@{/login}" class="register-link">
-                      Login here <i class="fa fa-arrow-right"></i>
-                    </a>
-                  </p>
-                </div>
-
-              </form>
             </div>
-
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-  <!-- Registration Section End -->
-
-</section>
-</body>
+      </section>
+      <!-- Registration Section End -->
+    </section>
+  </body>
 </html>

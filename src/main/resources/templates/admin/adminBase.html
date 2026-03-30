@@ -40,10 +40,18 @@
                         </a>
 
                         <div class="sb-sidenav-menu-heading">GYM MANAGEMENT</div>
-                        <a class="nav-link" th:href="@{/admin/members}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div> 
+
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMembers" aria-expanded="false" aria-controls="collapseMembers">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                             Members
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
+                        <div class="collapse" id="collapseMembers" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" th:href="@{/admin/members}">View All Members</a>
+                                <a class="nav-link" th:href="@{/admin/member/add}">Add New Member</a>
+                            </nav>
+                        </div>
 
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTrainers" aria-expanded="false" aria-controls="collapseTrainers">
                             <div class="sb-nav-link-icon"><i class="fas fa-person-running"></i></div>
