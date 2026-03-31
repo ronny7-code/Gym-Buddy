@@ -32,6 +32,7 @@ public class HomeController {
     @GetMapping("/aboutUs")
     public String getAboutUsPage(Model model) {
         model.addAttribute("title", "About Us");
+        model.addAttribute("trainers", trainerService.getAllTrainers());
         return "about";
     }
 

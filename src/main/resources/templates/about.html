@@ -90,11 +90,6 @@
           <div class="row">
             <div class="col-lg-6 p-0">
               <div class="about-video set-bg" data-setbg="/img/about-us.jpg">
-                <a
-                  href="https://www.youtube.com/watch?v=EzKkl64rRbM"
-                  class="play-btn video-popup"
-                  ><i class="fa fa-caret-right"></i
-                ></a>
               </div>
             </div>
             <div class="col-lg-6 p-0">
@@ -166,53 +161,14 @@
             </div>
           </div>
           <div class="row">
-            <div class="ts-slider owl-carousel">
-              <div class="col-lg-4">
-                <div class="ts-item set-bg" data-setbg="img/team/team-1.jpg">
-                  <div class="ts_text">
-                    <h4>Athart Rachel</h4>
-                    <span>Gym Trainer</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="ts-item set-bg" data-setbg="img/team/team-2.jpg">
-                  <div class="ts_text">
-                    <h4>Athart Rachel</h4>
-                    <span>Gym Trainer</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="ts-item set-bg" data-setbg="img/team/team-3.jpg">
-                  <div class="ts_text">
-                    <h4>Athart Rachel</h4>
-                    <span>Gym Trainer</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="ts-item set-bg" data-setbg="img/team/team-4.jpg">
-                  <div class="ts_text">
-                    <h4>Athart Rachel</h4>
-                    <span>Gym Trainer</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="ts-item set-bg" data-setbg="img/team/team-5.jpg">
-                  <div class="ts_text">
-                    <h4>Athart Rachel</h4>
-                    <span>Gym Trainer</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="ts-item set-bg" data-setbg="img/team/team-6.jpg">
-                  <div class="ts_text">
-                    <h4>Athart Rachel</h4>
-                    <span>Gym Trainer</span>
-                  </div>
+            <div class="col-lg-4 col-sm-6" th:each="trainer : ${trainers}">
+              <div
+                class="ts-item set-bg"
+                th:data-setbg="@{'/uploads/images/' + ${trainer.profileImageName}}"
+              >
+                <div class="ts_text">
+                  <h4 th:text="${trainer.name}">Athart Rachel</h4>
+                  <span th:text="${trainer.role}">Gym Trainer</span>
                 </div>
               </div>
             </div>
